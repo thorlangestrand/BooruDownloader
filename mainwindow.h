@@ -2,12 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QNetworkReply>
 #include <QDebug>
 #include <QtWidgets>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include <QMessageBox>
 #include <QFile>
 #include <QEventLoop>

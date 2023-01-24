@@ -71,6 +71,8 @@ FORMS += \
     mainwindow.ui
 
 LIBS += -lole32 -luuid
+# ole32 for the COM library; CoTaskMemFree
+# uuid for libuuid;          knownfolders
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -84,6 +86,7 @@ RESOURCES += \
 DISTFILES += \
     uicon.rc
 
+# These paths will have to be updated for where you keep your .a files
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurl
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurl
 else:unix: LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurl
