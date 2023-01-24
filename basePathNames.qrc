@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/basePathNames">
+        <file>basePathNames/dbPathDefault.txt</file>
+        <file>basePathNames/gbPathDefault.txt</file>
+        <file>basePathNames/r34PathDefault.txt</file>
+        <file>basePathNames/anime-picturesPathDefault.txt</file>
+    </qresource>
+</RCC>

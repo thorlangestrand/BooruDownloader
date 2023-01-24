@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/groove.ico</file>
+        <file>img/jack.ico</file>
+        <file>img/jackedfrost.ico</file>
+        <file>img/suwuzuha.ico</file>
+        <file>img/usericon.png</file>
+        <file>img/162588536125195222.png</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
