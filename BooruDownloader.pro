@@ -1,4 +1,4 @@
-QT       += core gui network xml
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -85,7 +85,7 @@ DISTFILES += \
     uicon.rc
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurl
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurld
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurl
 else:unix: LIBS += -L$$PWD/../../lib/curl/x64_mingw/ -lcurl
 
 INCLUDEPATH += $$PWD/../../lib/curl/x64_mingw
