@@ -72,8 +72,8 @@ bool gelbooruDownloader(const char* rawJson, size_t pageNumber, std::string base
 
   if (res["post"].nChildren == 0)
   {
-      QString wMsg = QString("No results returned at page %1").arg(pageNumber);
-      Warn(wMsg);
+//      QString wMsg = QString("No results returned at page %1").arg(pageNumber);
+//      Warn(wMsg);
       res.erase();
       return false;
   }

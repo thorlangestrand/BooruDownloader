@@ -213,8 +213,8 @@ bool animePicturesDownloader(const std::string& rawHtml, size_t pageNumber, cons
 
     if (images.size() == 0)
     {
-        QString wMsg = QString("No results returned at page %1").arg(pageNumber);
-        Warn(wMsg);
+//        QString wMsg = QString("No results returned at page %1").arg(pageNumber);
+//        Warn(wMsg);
         return false;
     }
 
