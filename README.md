@@ -13,8 +13,25 @@ Downloads images/gifs/videos and saves to disk from
 
 Search is done the exact same way it would be done on the sites
 
+
+## Installation
+
+None required. Download the .zip from the releases, unzip, launch  
+All required .dll files should be included in the release
+
+## Building from source
+
+Open the project in QT Creator 7.0.0
+Update BooruDownloader.pro to reflect your include paths  
+Link to your own curl library or to the included binary  
+Build with MinGW 64-Bit
+
+
+
+
 ## Usage  
-### Downloading
+
+### Downloading Images
 ![ex_usage_download](./media/ex_usage_download.png)  
 
 This will
