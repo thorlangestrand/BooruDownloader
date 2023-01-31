@@ -3,8 +3,8 @@
 
 ## Features
 
-Small program made to make using various booru sites more comfortable  
-Downloads images/gifs/videos and saves to disk from
+Small program intended to make using various booru sites more comfortable  
+Downloads images/gifs/videos and saves them to disk from
 - Danbooru
 - Gelbooru
 - R34
@@ -23,7 +23,7 @@ All required .dll files should be included in the release
 
 Open the project in QT Creator 7.0.0
 Update BooruDownloader.pro to reflect your include paths  
-Link to your own curl library or to the included binary  
+Link to your own libraries or the included binaries located in the lib directory  
 Build with MinGW 64-Bit
 
 
