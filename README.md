@@ -11,7 +11,7 @@ Downloads images/gifs/videos and saves to disk from
 - Anime-Pictures
 - smtgbooru  
 
-Search is done the same way it would be for site the data is being requested from  
+Search is done the exact same way it would be done on the sites
 
 ## Usage  
 ### Downloading
