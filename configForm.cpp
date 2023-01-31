@@ -98,7 +98,7 @@ ConfigForm::ConfigForm(MainWindow* parent)
     mainLayout->addWidget(buttonBox, 15, 0, 1, 2);
 
     ConfigForm::setLayout(mainLayout);
-    ConfigForm::setWindowTitle("Edit Global Variables");
+    ConfigForm::setWindowTitle("Configure Settings");
 }
 
 ConfigForm::~ConfigForm()

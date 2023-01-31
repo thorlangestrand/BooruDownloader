@@ -14,11 +14,11 @@
 ///
 namespace globals
 {
-    inline QString gelbooruBasePath =           "C:\\images\\gelboorucpp";           // Root savepath for the various services
-    inline QString danbooruBasePath =           "C:\\images\\danboorucpp";           // !IMPORTANT!
-    inline QString r34BasePath =                "C:\\images\\r34";                   // The program EXPECTS these to exist and
-    inline QString animePicturesBasePath =      "C:\\images\\anime-pictures";        // will crash if they do not
-    inline QString smtgbooruBasePath =          "C:\\images\\smtgbooru";
+    inline QString gelbooruBasePath =           "";       // Root savepath for the various services
+    inline QString danbooruBasePath =           "";       // !IMPORTANT!
+    inline QString r34BasePath =                "";       // The program EXPECTS these to exist and
+    inline QString animePicturesBasePath =      "";       // will crash if they do not
+    inline QString smtgbooruBasePath =          "";
 
     inline QString gelbooruPageDefault =        "2";      // Default amount of pages to download for gelbooru
     inline QString danbooruPageDefault =        "10";     // Default amount of pages to download for danbooru

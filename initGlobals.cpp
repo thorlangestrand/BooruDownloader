@@ -66,6 +66,7 @@
  * [INT]            defaultService
  * [INT]            maxThreads
  */
+#include <qDebug>
 bool initGlobals()
 {
 
@@ -100,8 +101,26 @@ bool initGlobals()
     if (!std::filesystem::exists(workablePath + "\\config.scuff"))
     {
         Warn("No config file detected, using default configuration");
-        saveGlobals();
-        return true;
+
+        LPWSTR pPath = NULL;
+        HRESULT pHr = SHGetKnownFolderPath(FOLDERID_Pictures, 0, NULL, &pPath);
+
+        CoTaskMemFree(pPath);
+        std::string basePath = utf8_encode(pPath);
+
+        if (!SUCCEEDED(pHr))
+        {
+            Warn("Failed to locate Pictures folder");
+            return saveGlobals();
+        }
+
+        globals::gelbooruBasePath =      QString::fromStdString(basePath);
+        globals::danbooruBasePath =      QString::fromStdString(basePath);
+        globals::r34BasePath =           QString::fromStdString(basePath);
+        globals::animePicturesBasePath = QString::fromStdString(basePath);
+        globals::smtgbooruBasePath =     QString::fromStdString(basePath);
+
+        return saveGlobals();
     }
 
 
