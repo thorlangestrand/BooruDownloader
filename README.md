@@ -58,6 +58,8 @@ The Tor Proxy field is by default set to the default socks5 proxy the tor browse
 
 The program will check whether or not the tor connection is secure before starting the initial request,  
 however it will assume the connection is fine so long as the initial check succeeded  
-Checking for every download would be a lot of checks, slowing down an already greatly slowed process
-If you disagree with this philosophy and want greater peace of mind, it should be a very easy hack  
-(simply call checkTorConnection and test the result value)
+Checking for every download would be a lot of checks, slowing down an already greatly slowed process  
+
+If you disagree with this philosophy and want greater peace of mind, you can place a call to  
+checkTorConnection in the curlDownloadToStringBufferTor and curlDownloadToFilePointerTor functions
+and check their return value
