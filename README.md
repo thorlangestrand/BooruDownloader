@@ -11,7 +11,8 @@ Downloads images/gifs/videos and saves them to disk from
 - Anime-Pictures
 - smtgbooru  
 
-Search is done the exact same way it would be done on the sites
+Search is done the exact same way it would be done on the sites with the program  
+automatically purging illegal characters from the save path
 
 
 ## Installation
