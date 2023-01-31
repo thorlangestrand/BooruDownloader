@@ -62,4 +62,4 @@ Checking for every download would be a lot of checks, slowing down an already gr
 
 If you disagree with this philosophy and want greater peace of mind, you can place a call to  
 checkTorConnection in the curlDownloadToStringBufferTor and curlDownloadToFilePointerTor functions
-and check their return value
+and check the return value
