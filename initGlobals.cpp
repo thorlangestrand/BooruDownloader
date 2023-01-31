@@ -174,5 +174,7 @@ bool initGlobals()
     std::getline(in, buf); globals::defaultService =            std::stoi(buf);
     std::getline(in, buf); globals::maxThreads =                std::stoi(buf);
 
+    // globals::globalSem.setThreads(globals::maxThreads);
+
     return true;
 }

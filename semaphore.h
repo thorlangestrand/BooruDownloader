@@ -17,6 +17,7 @@ namespace scuff {
 
     public:
         Semaphore(size_t _count);
+        Semaphore(){};
 
         void setThreads(size_t threads);
         size_t getCount() const;

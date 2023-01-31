@@ -57,7 +57,6 @@ void parseAnimePicturesPage(const char* page, int pageLen, std::vector<imageData
 
               char* isHard = (char*)malloc(bufSize);
 
-
               i = 0;
               do {
                 c = namingThings[i + 8]; // Offset [previews] (not required to extract data)
@@ -213,8 +212,6 @@ bool animePicturesDownloader(const std::string& rawHtml, size_t pageNumber, cons
 
     if (images.size() == 0)
     {
-//        QString wMsg = QString("No results returned at page %1").arg(pageNumber);
-//        Warn(wMsg);
         return false;
     }
 

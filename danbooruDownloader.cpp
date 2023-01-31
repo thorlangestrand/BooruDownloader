@@ -1,6 +1,6 @@
 #include "danbooruDownloader.h"
 
-bool downloadDanbooruImage(std::string file_url, int id, size_t pageNumber, size_t imageNumber, const std::string& basePath, scuff::Semaphore& maxJobs)
+bool downloadDanbooruImage(std::string file_url, std::string large_file_url, int id, size_t pageNumber, size_t imageNumber, const std::string& basePath, scuff::Semaphore& maxJobs)
 {
 
     std::scoped_lock w(maxJobs);
@@ -21,6 +21,7 @@ bool downloadDanbooruImage(std::string file_url, int id, size_t pageNumber, size
     else
     {
         ss << ".mp4";
+        file_url = large_file_url;
     }
 
     FILE* fp = fopen(ss.str().c_str(), "wb");
@@ -53,8 +54,6 @@ bool danbooruDownloader(const char* rawJson, size_t pageNumber, std::string base
 
     if (res.nChildren == 0)
     {
-//        QString wMsg = QString("No results returned at page %1").arg(pageNumber);
-//        Warn(wMsg);
         res.erase();
         return false;
     }
@@ -78,8 +77,9 @@ bool danbooruDownloader(const char* rawJson, size_t pageNumber, std::string base
     for (size_t i = 0; i < res.nChildren; ++i)
     {
         std::string file_url = res[i]["file_url"];
+        std::string large_file_url = res[i]["large_file_url"];
         int id = res[i]["id"];
-        imgDownloadFutures.push_back(std::async(std::launch::async, downloadDanbooruImage, file_url, id, pageNumber - 1, i, basePath, std::ref(maxJobs)));
+        imgDownloadFutures.push_back(std::async(std::launch::async, downloadDanbooruImage, file_url, large_file_url, id, pageNumber - 1, i, basePath, std::ref(maxJobs)));
     }
 
     res.erase();

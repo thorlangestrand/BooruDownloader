@@ -8,8 +8,6 @@
 
 int main(int argc, char *argv[])
 {
-    // Initialize globals
-    // Globals are saved at C:\users\[user]\appdata\local\scuffdownloader\config.scuff
     QApplication a(argc, argv);
     if (!initGlobals())
     {

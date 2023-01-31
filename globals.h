@@ -4,7 +4,7 @@
 #include <QString>
 
 #include <string>
-
+#include "semaphore.h"
 ///
 /// \brief globals
 ///
@@ -81,6 +81,8 @@ namespace globals
     inline Qt::CheckState useAnimePicturesTor =        Qt::CheckState::Unchecked;
     inline Qt::CheckState useSmtgBooruTor =            Qt::CheckState::Unchecked;
     inline Qt::CheckState useAllTor =                  Qt::CheckState::Unchecked;
+
+    // inline scuff::Semaphore globalSem(globals::maxThreads);
 
 }
 

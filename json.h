@@ -272,7 +272,7 @@ namespace scuff {
           break;
         }
         case ScopeDataType::JSNULL: {
-          out << "NULL";
+          out << "null";
           break;
         }
         case ScopeDataType::LL: {
@@ -342,7 +342,7 @@ namespace scuff {
           break;
         }
         case ScopeDataType::JSNULL: {
-          out << "NULL";
+          out << "null";
           break;
         }
         case ScopeDataType::LL: {

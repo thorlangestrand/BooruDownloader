@@ -38,6 +38,7 @@ bool danbooruDownloader(const char* rawJson, size_t pageNumber, std::string base
 /// or through tor given the status of globals
 ///
 /// \param  file_url        - File to be downloaded
+/// \param  large_file_url  - Dealing with cursed ugoira format
 /// \param  id              - Image danbooru id
 /// \param  pageNumber      - Page number
 /// \param  imageNumber     - Image number
@@ -53,6 +54,6 @@ bool danbooruDownloader(const char* rawJson, size_t pageNumber, std::string base
 /// \see    Semaphore
 /// \see    Warn
 ///
-bool downloadDanbooruImage(std::string file_url, int id, size_t pageNumber, size_t imageNumber, const std::string& basePath, scuff::Semaphore& maxJobs);
+bool downloadDanbooruImage(std::string file_url, std::string large_file_url, int id, size_t pageNumber, size_t imageNumber, const std::string& basePath, scuff::Semaphore& maxJobs);
 
 #endif // DANBOORUDOWNLOADER_H
