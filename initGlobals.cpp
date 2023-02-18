@@ -194,6 +194,7 @@ bool initGlobals()
     std::getline(in, buf); globals::maxThreads =                std::stoi(buf);
 
     // globals::globalSem.setThreads(globals::maxThreads);
+    in.close();
 
     return true;
 }

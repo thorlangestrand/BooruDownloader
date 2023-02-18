@@ -88,6 +88,6 @@ bool saveGlobals()
     << globals::defaultService << "\n"
 
     << globals::maxThreads << "\n";
-
+    out.close();
     return true;
 }
