@@ -56,6 +56,7 @@ HEADERS += \
     initGlobals.h \
     isNum.hpp \
     json.h \
+    json.h \
     mainwindow.h \
     networkConfigForm.h \
     r34Downloader.h \
