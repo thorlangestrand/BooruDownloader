@@ -4,14 +4,17 @@ struct smtgImageData
 {
     std::string id = "";
     bool animated = false;
+    int pageNum;
+    int fileNum;
 };
 
-void parseSmtgPage(const std::string& rawPageHtml, std::vector<smtgImageData>& imageIDs)
+void parseSmtgPage(const std::string& rawPageHtml, std::vector<smtgImageData>& imageIDs, int pageNum)
 {
     size_t index = 0;
     size_t pageLen = rawPageHtml.length();
     size_t bufSize = 128;
     bool animated = false;
+    int curFileNum = 0;
 
     char c;
     char* buf = (char*)malloc(sizeof(char) * bufSize);
@@ -74,7 +77,7 @@ void parseSmtgPage(const std::string& rawPageHtml, std::vector<smtgImageData>& i
               } while (c != '\'');
               buf[--i] = '\0';
 
-              imageIDs.push_back({buf, animated});
+              imageIDs.push_back({buf, animated, pageNum, curFileNum++});
 
               break;
             }
@@ -134,10 +137,14 @@ bool downloadSmtgImage(smtgImageData image, std::string savePathRoot, size_t pag
     return true;
 }
 
-bool smtgDownloader(const std::string& rawHtml, size_t pageNumber, std::string savePathRoot)
+bool smtgDownloader(std::vector<std::string> htmlData, std::string savePathRoot)
 {
+
     std::vector<smtgImageData> imageIDs = {};
-    parseSmtgPage(rawHtml, imageIDs);
+    for (size_t i = 0; i < htmlData.size(); ++i)
+    {
+        parseSmtgPage(htmlData[i], imageIDs, i);
+    }
 
     if (imageIDs.size() == 0)
     {
@@ -157,10 +164,11 @@ bool smtgDownloader(const std::string& rawHtml, size_t pageNumber, std::string s
 
     scuff::Semaphore maxJobs(globals::maxThreads);
     std::vector<std::future<bool>> imgDownloadFutures = {};
+    imgDownloadFutures.reserve(imageIDs.size());
 
     for (size_t i = 0; i < imageIDs.size(); ++i)
     {
-        imgDownloadFutures.push_back(std::async(std::launch::async, downloadSmtgImage, imageIDs[i], savePathRoot, pageNumber, i, std::ref(maxJobs)));
+        imgDownloadFutures.push_back(std::async(std::launch::async, downloadSmtgImage, imageIDs[i], savePathRoot, imageIDs[i].pageNum, imageIDs[i].fileNum, std::ref(maxJobs)));
     }
 
     return true;

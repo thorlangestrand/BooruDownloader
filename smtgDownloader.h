@@ -34,7 +34,7 @@ struct smtgImageData;
 /// \see parseSmtgPage
 /// \see downloadSmtgImage
 ///
-bool smtgDownloader(const std::string& rawPageHtml, size_t pageNumber, std::string savePathRoot);
+bool smtgDownloader(std::vector<std::string> htmlData, std::string savePathRoot);
 
 ///
 /// \brief parseSmtgPage
@@ -47,7 +47,7 @@ bool smtgDownloader(const std::string& rawPageHtml, size_t pageNumber, std::stri
 /// \param  imageIds        - Container to store parsed IDs
 /// \return bool            - True if success, false if fail
 ///
-bool parseSmtgPage(const std::string& rawPageHtml, std::vector<std::string>& imageIDs);
+bool parseSmtgPage(const std::string& rawPageHtml, std::vector<std::string>& imageIDs, int pageNum);
 
 ///
 /// \brief downloadSmtgImage

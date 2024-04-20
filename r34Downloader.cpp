@@ -48,47 +48,96 @@ bool downloadR34Image(std::string url, int id, size_t pageNumber, size_t imageNu
     }
 }
 
-bool r34Downloader(const char* rawJson, size_t pageNumber, const std::string& basePath)
-{
-    scuff::json res = scuff::parseJson(rawJson);
+struct imageDataR {
+    int pageNumber;
+    int fileNumber;
+    int id;
+    std::string file_url;
+};
 
-    if (res.nChildren == 0)
+bool r34Downloader(std::vector<std::string> dataStrings, const std::string& basePath)
+{
+    // Collecting all the image data in one place so it can be bulk downloaded smoothly
+    std::vector<imageDataR> images = {};
+
+    for (size_t i = 0; i < dataStrings.size(); ++i)
     {
+        scuff::json res = scuff::parseJson(dataStrings[i].c_str());
+
+        int rsNchildren = res.nChildren;
+
+        for (int j = 0; j < rsNchildren; ++j)
+        {
+            scuff::json thisPost = res[j];
+            images.push_back({static_cast<int>(i), static_cast<int>(j), thisPost["id"], thisPost["file_url"]});
+        }
+
         res.erase();
-        return false;
+
     }
+
 
     if (!std::filesystem::exists(basePath))
     {
         if (!std::filesystem::create_directory(basePath))
         {
-             QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
-             Warn(wMsg);
-             return false;
+            QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
+
+            Warn(wMsg);
+            return false;
         }
     }
 
-    std::vector<std::string> urls = {}; urls.reserve(100);
-    std::vector<int> ids = {};          ids.reserve(100);
-
-    for (size_t i = 0; i < res.nChildren; ++i)
-    {
-        urls.push_back(res[i]["file_url"]);
-        ids.push_back(res[i]["id"]);
-    }
-
-    res.erase();
-
-
     scuff::Semaphore maxJobs(globals::maxThreads);
+    std::vector<std::future<bool>> imgDownloadFutures = {};
 
+    imgDownloadFutures.reserve(images.size());
 
-    std::vector<std::future<bool>> imageDownloadFutures = {};
-
-    for (size_t i = 0; i < urls.size(); ++i)
+    for (size_t i = 0; i < images.size(); ++i)
     {
-        imageDownloadFutures.push_back(std::async(std::launch::async, downloadR34Image, urls[i], ids[i], pageNumber, i, basePath, std::ref(maxJobs)));
+        imgDownloadFutures.push_back(std::async(std::launch::async, downloadR34Image, images[i].file_url, images[i].id, images[i].pageNumber, images[i].fileNumber, basePath, std::ref(maxJobs)));
     }
+
+
+//    scuff::json res = scuff::parseJson(rawJson);
+
+//    if (res.nChildren == 0)
+//    {
+//        res.erase();
+//        return false;
+//    }
+
+//    if (!std::filesystem::exists(basePath))
+//    {
+//        if (!std::filesystem::create_directory(basePath))
+//        {
+//             QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
+//             Warn(wMsg);
+//             return false;
+//        }
+//    }
+
+//    std::vector<std::string> urls = {}; urls.reserve(100);
+//    std::vector<int> ids = {};          ids.reserve(100);
+
+//    for (size_t i = 0; i < res.nChildren; ++i)
+//    {
+//        urls.push_back(res[i]["file_url"]);
+//        ids.push_back(res[i]["id"]);
+//    }
+
+//    res.erase();
+
+
+//    scuff::Semaphore maxJobs(globals::maxThreads);
+
+
+//    std::vector<std::future<bool>> imageDownloadFutures = {};
+
+//    for (size_t i = 0; i < urls.size(); ++i)
+//    {
+//        imageDownloadFutures.push_back(std::async(std::launch::async, downloadR34Image, urls[i], ids[i], pageNumber, i, basePath, std::ref(maxJobs)));
+//    }
 
     return true;
 }

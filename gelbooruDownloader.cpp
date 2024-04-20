@@ -49,10 +49,20 @@ bool downloadGelbooruImage(std::string file_url, int id, size_t pageNumber, size
 
 
 
+struct imageDataG {
+    int pageNumber;
+    int fileNumber;
+    int id;
+    std::string file_url;
+};
 
 
 /**
  * @brief gelbooruDownloader
+ * THIS IS ALL FUCKED
+ * ALL THE COMMENTS ARE FUCKED
+ * I WILL MAYBE FIX THEM LATER
+ * LOL
  * Download a page of images defined in rawJson and save them to disk
  * based on search tags and provided base path
  *
@@ -65,41 +75,49 @@ bool downloadGelbooruImage(std::string file_url, int id, size_t pageNumber, size
  * @param basePath          -   Base path for images to be stored at, e.g. C:\images\fate_(series)
  * @return bool             -   True if no issues, false if something went wrong / we're out of results
  */
-bool gelbooruDownloader(const char* rawJson, size_t pageNumber, std::string basePath)
+bool gelbooruDownloader(std::vector<std::string> dataStrings, std::string basePath)
 {
+    // Collecting all the image data in one place so it can be bulk downloaded smoothly
+    std::vector<imageDataG> images = {};
 
-  scuff::json res = scuff::parseJson(rawJson);
+    for (size_t i = 0; i < dataStrings.size(); ++i)
+    {
+        scuff::json res = scuff::parseJson(dataStrings[i].c_str());
 
-  if (res["post"].nChildren == 0)
-  {
-      res.erase();
-      return false;
-  }
+        int rsNchildren = res["post"].nChildren;
 
-  if (!std::filesystem::exists(basePath))
-  {
-      if (!std::filesystem::create_directory(basePath))
-      {
-           QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
-           Warn(wMsg);
-           res.erase();
-           return false;
-      }
-  }
+        for (int j = 0; j < rsNchildren; ++j)
+        {
+            scuff::json thisPost = res["post"][j];
+            images.push_back({static_cast<int>(i), static_cast<int>(j), thisPost["id"], thisPost["file_url"]});
+        }
 
-  scuff::Semaphore maxJobs(globals::maxThreads);
+        res.erase();
 
-  std::vector<std::future<bool>> imgDownloadFutures = {};
-  imgDownloadFutures.reserve(100);
+    }
 
-  for (size_t i = 0; i < res["post"].nChildren; ++i)
-  {
-      std::string file_url = res["post"][i]["file_url"];
-      int id = res["post"][i]["id"];
-      imgDownloadFutures.push_back(std::async(std::launch::async, downloadGelbooruImage, file_url, id, pageNumber, i, basePath, std::ref(maxJobs)));
-  }
 
-  res.erase();
-  return true;
+    if (!std::filesystem::exists(basePath))
+    {
+        if (!std::filesystem::create_directory(basePath))
+        {
+            QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
+
+            Warn(wMsg);
+            return false;
+        }
+    }
+
+    scuff::Semaphore maxJobs(globals::maxThreads);
+    std::vector<std::future<bool>> imgDownloadFutures = {};
+
+    imgDownloadFutures.reserve(images.size());
+
+    for (size_t i = 0; i < images.size(); ++i)
+    {
+        imgDownloadFutures.push_back(std::async(std::launch::async, downloadGelbooruImage, images[i].file_url, images[i].id, images[i].pageNumber, images[i].fileNumber, basePath, std::ref(maxJobs)));
+    }
+
+    return true;
 }
 

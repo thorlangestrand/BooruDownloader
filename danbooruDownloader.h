@@ -15,6 +15,7 @@
 #include "semaphore.h"
 #include "warn.h"
 
+#include <qDebug>
 ///
 /// \brief danbooruDownloader
 ///
@@ -29,7 +30,7 @@
 ///
 /// \see    json
 ///
-bool danbooruDownloader(const char* rawJson, size_t pageNumber, std::string basePath);
+bool danbooruDownloader(std::vector<std::string> dataStrings, std::string basePath);
 
 ///
 /// \brief downloadDanbooruImage

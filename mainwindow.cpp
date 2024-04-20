@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+// #include <qDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -68,6 +68,9 @@ void MainWindow::on_sendPushButton_clicked()
     {
     // Gelbooru
     case Services::Gelbooru: {
+
+        std::vector<std::string> dataStrings = {};
+
         for (size_t i = 0; i < pagesCount; ++i)
         {
             MainWindow::selected = Services::Gelbooru;
@@ -115,18 +118,23 @@ void MainWindow::on_sendPushButton_clicked()
                     return;
                 }
             }
+            dataStrings.push_back(resBuffer);
+        }
 
-            if (!gelbooruDownloader(resBuffer.c_str(), i, validFilePath.toStdString()))
-            {
-                resetConsoleText();
-                return;
-            }
+        if (!gelbooruDownloader(dataStrings, validFilePath.toStdString()))
+        {
+            resetConsoleText();
+            return;
         }
         break;
     }
     // Danbooru
     case Services::Danbooru: {
+
+        std::vector<std::string> dataStrings = {};
+
         int n = ui->numLineEdit->text().toInt();
+
         for (size_t i = 1; i <= pagesCount; ++i)
         {
             MainWindow::selected = Services::Danbooru;
@@ -177,15 +185,20 @@ void MainWindow::on_sendPushButton_clicked()
                 }
             }
 
-            if (!danbooruDownloader(resBuffer.c_str(), i, validFilePath.toStdString()))
-            {
-                resetConsoleText();
-                return;
-            }
+            dataStrings.push_back(resBuffer);
+        }
+
+        if (!danbooruDownloader(dataStrings, validFilePath.toStdString()))
+        {
+            resetConsoleText();
+            return;
         }
         break;
     }
     case Services::R34: {
+
+        std::vector<std::string> dataStrings = {};
+
         for (size_t i = 0; i < pagesCount; ++i)
         {
             MainWindow::selected = Services::R34;
@@ -234,17 +247,22 @@ void MainWindow::on_sendPushButton_clicked()
                     return;
                 }
             }
+            dataStrings.push_back(resBuffer);
 
-
-            if (!r34Downloader(resBuffer.c_str(), i, validFilePath.toStdString()))
-            {
-                resetConsoleText();
-                return;
-            }
         }
+
+        if (!r34Downloader(dataStrings, validFilePath.toStdString()))
+        {
+            resetConsoleText();
+            return;
+        }
+
         break;
     }
     case Services::AnimeImages: {
+
+        std::vector<std::string> dataStrings = {};
+
         for (size_t i = 0; i < pagesCount; ++i)
         {
 
@@ -297,17 +315,25 @@ void MainWindow::on_sendPushButton_clicked()
                 }
             }
 
-            if (!animePicturesDownloader(resBuffer, i, validFilePath.toStdString()))
-            {
-                resetConsoleText();
-                return;
-            }
+            dataStrings.push_back(resBuffer);
 
         }
+
+        if (!animePicturesDownloader(dataStrings, validFilePath.toStdString()))
+        {
+            resetConsoleText();
+            return;
+        }
+
         break;
     }
     case Services::smtgbooru: {
-        for (size_t i = 0; i < pagesCount; ++i)
+
+        std::vector<std::string> dataStrings = {};
+
+        // NOTE
+        // smtgbooru indexes from 1
+        for (size_t i = 1; i <= pagesCount; ++i)
         {
             CURL* curl = curl_easy_init();
             if (!curl)
@@ -352,12 +378,16 @@ void MainWindow::on_sendPushButton_clicked()
                 }
             }
 
-            if (!smtgDownloader(resBuffer, i, validFilePath.toStdString()))
-            {
-                resetConsoleText();
-                return;
-            }
+            dataStrings.push_back(resBuffer);
+
         }
+
+        if (!smtgDownloader(dataStrings, validFilePath.toStdString()))
+        {
+            resetConsoleText();
+            return;
+        }
+
         break;
     }
     default: {

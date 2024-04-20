@@ -5,9 +5,10 @@ struct imageData
    std::string id = "";
    std::string url = "";
    bool animated = false;
+   int pageNumber;
 };
 
-void parseAnimePicturesPage(const char* page, int pageLen, std::vector<imageData>& imageIds)
+void parseAnimePicturesPage(const char* page, int pageLen, std::vector<imageData>& imageIds, int pageNumber)
 {
 
     int index = 0;
@@ -70,7 +71,7 @@ void parseAnimePicturesPage(const char* page, int pageLen, std::vector<imageData
 
               isHard[--i] = '\0'; // Clear _ with terminator
 
-              imageIds.push_back({ isHard, "", animated });
+              imageIds.push_back({ isHard, "", animated, pageNumber});
               free(isHard);
 
               break;
@@ -140,7 +141,7 @@ imageData parseAnimePicturesImage(const imageData& img)
   if (img.animated)
   {
     url += ".gif";
-    return { img.id, url, true };
+    return { img.id, url, true, img.pageNumber };
   }
 
   // If it's not, however, we need to test .jpg, .jpeg and .png to see
@@ -152,7 +153,7 @@ imageData parseAnimePicturesImage(const imageData& img)
 
   if (testAnimePicturesUrl(url))
   {
-    return { img.id, url, false };
+    return { img.id, url, false, img.pageNumber };
   }
 
   url.erase(url.length() - 4);
@@ -160,7 +161,7 @@ imageData parseAnimePicturesImage(const imageData& img)
 
   if (testAnimePicturesUrl(url))
   {
-    return { img.id, url, false };
+    return { img.id, url, false, img.pageNumber };
   }
 
   url.erase(url.length() - 5);
@@ -168,10 +169,10 @@ imageData parseAnimePicturesImage(const imageData& img)
 
   if (testAnimePicturesUrl(url))
   {
-    return { img.id, url , false };
+    return { img.id, url , false, img.pageNumber };
   }
 
-  return { img.id, "" , false };
+  return { img.id, "" , false, img.pageNumber };
 }
 
 bool downloadAnimePicturesImage(const char* imageUrl, std::string savePath, scuff::Semaphore& maxJobs)
@@ -202,17 +203,17 @@ bool downloadAnimePicturesImage(const char* imageUrl, std::string savePath, scuf
 }
 
 
-bool animePicturesDownloader(const std::string& rawHtml, size_t pageNumber, const std::string& basePath)
+
+/// There's some fuckery going on that I never fixed, lol.
+bool animePicturesDownloader(std::vector<std::string> rawHtmlPages, const std::string& basePath)
 {
 
 
     std::vector<imageData> images = {};
 
-    parseAnimePicturesPage(rawHtml.c_str(), rawHtml.size(), images);
-
-    if (images.size() == 0)
+    for (size_t i = 0; i < rawHtmlPages.size(); ++i)
     {
-        return false;
+        parseAnimePicturesPage(rawHtmlPages[i].c_str(), rawHtmlPages[i].size(), images, i);
     }
 
     if (!std::filesystem::exists(basePath))
@@ -244,12 +245,13 @@ bool animePicturesDownloader(const std::string& rawHtml, size_t pageNumber, cons
 
     scuff::Semaphore maxJobs(globals::maxThreads);
     std::vector<std::future<bool>> imageDownloadFutures = {};
-    imageDownloadFutures.reserve(80);
+    imageDownloadFutures.reserve(urls.size());
 
     for (size_t i = 0; i < urls.size(); ++i)
     {
+
         std::stringstream ss;
-        ss << basePath << pageNumber << " " << i << " " << urls[i].id.substr(5) << (urls[i].animated ? ".gif" : ".png");
+        ss << basePath << urls[i].pageNumber << " " << i << " " << urls[i].id.substr(5) << (urls[i].animated ? ".gif" : ".png");
         imageDownloadFutures.push_back(std::async(std::launch::async, downloadAnimePicturesImage, urls[i].url.c_str(), ss.str(), std::ref(maxJobs)));
     }
 

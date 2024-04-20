@@ -66,7 +66,7 @@
  * [INT]            defaultService
  * [INT]            maxThreads
  */
-#include <qDebug>
+#include <QDebug>
 bool initGlobals()
 {
 

@@ -308,9 +308,15 @@ namespace scuff {
       else {
         out << "{\n";
 
-        for (const std::pair<const std::string, json*>& it : scope.children)
+        for (std::map<std::string, json*>::const_iterator it = scope.children.begin(); it != scope.children.end(); it++)
         {
-          it.second->print(out, depth + 1);
+          if (it != scope.children.end() && std::next(it) == scope.children.end())
+          {
+            it->second->print(out, depth + 1, false, true);
+          }
+          else {
+            it->second->print(out, depth + 1, false, false);            
+          }
         }
         out << "}\n";
         return out;
@@ -391,7 +397,7 @@ namespace scuff {
     }
   };
 
-  class PureObjectDataScope: public json {
+  class PureObjectDataScope : public json {
   public:
     ~PureObjectDataScope() override
     {
@@ -424,6 +430,45 @@ namespace scuff {
       }
     }
   };
+
+  class PureObjectArrayMember : public json {
+  public:
+
+
+
+
+    ~PureObjectArrayMember() override
+    {
+      switch (pdsType)
+      {
+      case ScopeDataType::STRING: {
+        delete (std::string*)pData;
+        break;
+      }
+      case ScopeDataType::INT: {
+        delete (int*)pData;
+        break;
+      }
+      case ScopeDataType::DOUBLE: {
+        delete (double*)pData;
+        break;
+      }
+      case ScopeDataType::BOOL: {
+        delete (bool*)pData;
+        break;
+      }
+      case ScopeDataType::JSNULL: {
+        // Deleting a null pointer seems like a fun idea
+        break;
+      }
+      default: {
+        std::cout << "Error invalid json!";
+        break;
+      }
+      }
+    }
+  };
+
 }
 
 #endif //JSON_H

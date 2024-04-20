@@ -33,7 +33,7 @@ struct imageData;
 /// \see parseAnimePicturesPage
 /// \see downloadAnimePicturesImage
 ///
-bool animePicturesDownloader(const std::string& rawHtml, size_t pageNumber, const std::string& basePath);
+bool animePicturesDownloader(std::vector<std::string> rawHtmlPages, const std::string& basePath);
 
 ///
 /// \brief parseAnimePicturesPage
@@ -45,7 +45,7 @@ bool animePicturesDownloader(const std::string& rawHtml, size_t pageNumber, cons
 /// \param pageLen      - Size of HTML
 /// \param imageIds     - Container to hold image ids and urls
 ///
-void parseAnimePicturesPage(char* page, int pageLen, std::vector<imageData>& imageIds);
+void parseAnimePicturesPage(char* page, int pageLen, std::vector<imageData>& imageIds, int pageNumber);
 
 ///
 /// \brief parseAnimePicturesImage

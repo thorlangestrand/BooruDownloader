@@ -29,7 +29,7 @@
 ///
 /// \see json
 ///
-bool r34Downloader(const char* rawJson, size_t pageNumber, const std::string& basePath);
+bool r34Downloader(std::vector<std::string> dataStrings, const std::string& basePath);
 
 ///
 /// \brief downloadR34Image

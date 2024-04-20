@@ -29,7 +29,7 @@
 ///
 /// \see    json
 ///
-bool gelbooruDownloader(const char* rawJson, size_t pageNumber, std::string basePath);
+bool gelbooruDownloader(std::vector<std::string>, std::string basePath);
 
 ///
 /// \brief downloadGelbooruImage

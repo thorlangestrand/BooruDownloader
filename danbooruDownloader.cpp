@@ -47,41 +47,59 @@ bool downloadDanbooruImage(std::string file_url, std::string large_file_url, int
     }
 }
 
-bool danbooruDownloader(const char* rawJson, size_t pageNumber, std::string basePath)
+struct imageDataD {
+    int pageNumber;
+    int fileNumber;
+    int id;
+    std::string file_url;
+    std::string large_file_url;
+};
+
+bool danbooruDownloader(std::vector<std::string> dataStrings, std::string basePath)
 {
 
-    scuff::json res = scuff::parseJson(rawJson);
 
-    if (res.nChildren == 0)
+    // Collecting all the image data in one place so it can be bulk downloaded smoothly
+    std::vector<imageDataD> images = {};
+
+    for (size_t i = 0; i < dataStrings.size(); ++i)
     {
+        scuff::json res = scuff::parseJson(dataStrings[i].c_str());
+
+        int rsNchildren = res.nChildren;
+
+        for (int j = 0; j < rsNchildren; ++j)
+        {
+            scuff::json thisPost = res[j];
+            images.push_back({static_cast<int>(i), static_cast<int>(j), thisPost["id"], thisPost["file_url"], thisPost["large_file_url"]});
+        }
+
         res.erase();
-        return false;
+
     }
+
 
     if (!std::filesystem::exists(basePath))
     {
         if (!std::filesystem::create_directory(basePath))
         {
-             QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
-             Warn(wMsg);
-             res.erase();
-             return false;
+            QString wMsg = "Failed to create directory: " + QString::fromStdString(basePath);
+
+            Warn(wMsg);
+            return false;
         }
     }
 
+
+    scuff::Semaphore maxJobs(globals::maxThreads);
     std::vector<std::future<bool>> imgDownloadFutures = {};
 
-    imgDownloadFutures.reserve(20);
-    scuff::Semaphore maxJobs(globals::maxThreads);
+    imgDownloadFutures.reserve(images.size());
 
-    for (size_t i = 0; i < res.nChildren; ++i)
+    for (size_t i = 0; i < images.size(); ++i)
     {
-        std::string file_url = res[i]["file_url"];
-        std::string large_file_url = res[i]["large_file_url"];
-        int id = res[i]["id"];
-        imgDownloadFutures.push_back(std::async(std::launch::async, downloadDanbooruImage, file_url, large_file_url, id, pageNumber - 1, i, basePath, std::ref(maxJobs)));
+        imgDownloadFutures.push_back(std::async(std::launch::async, downloadDanbooruImage, images[i].file_url, images[i].large_file_url, images[i].id, images[i].pageNumber, images[i].fileNumber, basePath, std::ref(maxJobs)));
     }
 
-    res.erase();
     return true;
 }

@@ -1,8 +1,8 @@
 #include "json.h"
 namespace scuff
 {
-  json::json(bool _array, std::string _label): array(_array), label(_label) {}
-  
+  json::json(bool _array, std::string _label) : array(_array), label(_label) {}
+
   json::json(std::string _label, std::string _data, bool _str) {
     pureObjectData = true;
     array = false;
@@ -171,7 +171,91 @@ namespace scuff
       // Here is where I'd implement a handler for instances like
       // "data": [1,1,2,3,5,8]
       else {
-        c != ']' && ++jsonPointer;
+
+        // Five conditions
+        // c == "
+        // c == letter
+        // c == number
+        // c == true/false
+        // c == null
+        unsigned int tmpP = jsonPointer;
+
+
+
+        // Clear whitespace
+        while (rawJson[tmpP + 1] == ' ' || rawJson[tmpP + 1] == ':') { ++tmpP; }
+
+        c = rawJson[tmpP];
+        if (c == ']') {
+          jsonPointer = tmpP;
+          continue;
+        }
+
+        //std::cout << c;
+
+
+
+/*         std::string buf = "";
+        bool str = false;
+
+        if (c == '\"') {
+          bool escaped = false;
+          str = true;
+          do {
+            c = rawJson[++tmpP];
+            if (c == '\\') { escaped = true; }
+            else if (escaped) {
+              escaped = false;
+              buf += c;
+              c = rawJson[++tmpP];
+            }
+            buf += c;
+          } while (c != '\"');
+
+        }
+        else {
+          do {
+            c = rawJson[++tmpP];
+            buf += c;
+          } while (c != ',' && c != ']');
+        }
+
+        std::string data = "";
+        std::cout << buf << '\n';
+
+        if (str) { ; }
+
+        json* newScope = new json("temp", buf, true);
+        scope->arrChildren.resize(scope->nChildren + 1);
+        scope->arrChildren[scope->nChildren++] = newScope; */
+        //newScope->label = "";
+        //parseArrayScope(newScope, ++jsonPointer, rawJson);
+        //std::cout << buf << '\n';
+        //for (size_t i = 0; i < buf.size(); ++i) { std::cout << buf[i] << '.'; }
+
+
+
+
+
+        // scope->arrChildren.resize(scope->nChildren + 1);
+        /* bool inQuotes = false;
+
+        unsigned int tmpP = jsonPointer;
+        do {
+          c = rawJson[jsonPointer];
+          if (c == '\"') { inQuotes = !inQuotes; }
+          else if (!inQuotes && (c == '{' || c == '[')) { continue; }
+          ++jsonPointer;
+        } while ((c != ',' && c != '}' && c != ']') || inQuotes);
+ */
+
+
+
+
+
+
+        jsonPointer = tmpP;
+        ++jsonPointer;
       }
     } while (c != ']');
   }
