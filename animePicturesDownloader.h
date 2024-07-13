@@ -20,6 +20,10 @@ struct imageData;
 ///
 /// \brief animePicturesDownloader
 ///
+/// NOTE:
+/// Due to cloudflare protection all of this no longer works
+/// Lol
+///
 /// Downloads images from given anime-pictures site by
 /// parsing out html passed by calling function and returns bool
 /// based on success or failure
