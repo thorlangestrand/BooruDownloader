@@ -69,7 +69,6 @@
 #include <QDebug>
 bool initGlobals()
 {
-
     LPWSTR path = NULL;
 
     HRESULT hr = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, NULL, &path);
@@ -126,6 +125,10 @@ bool initGlobals()
 
     std::ifstream in(workablePath + "\\config.scuff");
 
+    std::ifstream in2(workablePath+"\\config.json");
+
+
+    return true;
     if (!in.is_open())
     {
         Warn("Failed to open config file");
@@ -178,12 +181,15 @@ bool initGlobals()
 
     std::getline(in, globals::smtgBooruDNS);
 
+    std::getline(in, globals::yandereDNS);
+
 
     std::getline(in, buf); globals::useGelbooruTor =            (Qt::CheckState)std::stoi(buf);
     std::getline(in, buf); globals::useDanbooruTor =            (Qt::CheckState)std::stoi(buf);
     std::getline(in, buf); globals::useR34Tor =                 (Qt::CheckState)std::stoi(buf);
     std::getline(in, buf); globals::useAnimePicturesTor =       (Qt::CheckState)std::stoi(buf);
     std::getline(in, buf); globals::useSmtgBooruTor =           (Qt::CheckState)std::stoi(buf);
+    std::getline(in, buf); globals::useYandereTor =             (Qt::CheckState)std::stoi(buf);
     std::getline(in, buf); globals::useAllTor =                 (Qt::CheckState)std::stoi(buf);
 
     std::getline(in, globals::sslCertificate);

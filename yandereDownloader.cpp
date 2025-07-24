@@ -33,6 +33,8 @@ bool yandereDownloader(std::vector<std::string> dataStrings, std::string basePat
 
     }
 
+
+
     if (!std::filesystem::exists(basePath))
     {
         if (!std::filesystem::create_directory(basePath))

@@ -14,6 +14,49 @@
 ///
 namespace globals
 {
+
+    enum saveKeys {
+        gelbooruBasePathEnum            =       0,
+        danbooruBasePathEnum            =       1,
+        r34BasePathEnum                 =       2,
+        animePicturesBasePathEnum       =       3,
+        yandereBasePathEnum             =       4,
+        smtgbooruBasePathEnum           =       5,
+        gelbooruPageDefaultEnum         =       6,
+        danbooruPageDefaultEnum         =       7,
+        danbooruNumDefaultEnum          =       8,
+        r34PageDefaultEnum              =       9,
+        animePicturesPageDefaultEnum    =       10,
+        smtgbooruPageDefaultEnum        =       11,
+        gelbooruIPEnum                  =       12,
+        gelbooruIMG3IPEnum              =       13,
+        gelbooruVIDIPEnum               =       14,
+        danbooruIPEnum                  =       15,
+        danbooruCDNIPEnum               =       16,
+        r34IPEnum                       =       17,
+        r34WIMGIPEnum                   =       18,
+        animePicturesIPEnum             =       19,
+        animePicturesIMGIPEnum          =       20,
+        smtgBooruIPEnum                 =       21,
+        gelbooruDNSEnum                 =       22,
+        gelbooruIMG3DNSEnum             =       23,
+        gelbooruVIDDNSEnum              =       24,
+        danbooruDNSEnum                 =       25,
+        danbooruCDNDNSEnum              =       26,
+        r34DNSEnum                      =       27,
+        r34WIMGDNSEnum                  =       28,
+        animePicturesDNSEnum            =       29,
+        animePicturesIMGDNSEnum         =       30,
+        smtgBooruDNSEnum                =       31,
+        yandereDNSEnum                  =       32,
+        sslCertificateEnum              =       33,
+        torProxyEnum                    =       34,
+        danbooruUserEnum                =       35,
+        danbooruKeyEnum                 =       36,
+        curlUserAgentEnum               =       37,
+        defaultServiceEnum              =       38
+    };
+
     inline QString gelbooruBasePath =           "";       // Root savepath for the various services
     inline QString danbooruBasePath =           "";       // !IMPORTANT!
     inline QString r34BasePath =                "";       // The program EXPECTS these to exist and
@@ -45,7 +88,7 @@ namespace globals
 
 
     inline std::string gelbooruDNS =            "gelbooru.com:443:67.202.114.141";                  // Dns resolution chains
-    inline std::string gelbooruIMG3DNS =        "img3.gelbooru.com:443:104.21.234.5";
+    inline std::string gelbooruIMG3DNS =        "img3.gelbooru.com:443:104.21.234.5";               // Please do keep in mind that these obviously break if a site changes their ip
     inline std::string gelbooruVIDDNS =         "video-cdn3.gelbooru.com:443:172.107.228.194";
 
     inline std::string danbooruDNS =            "danbooru.donmai.us:443:172.67.70.99";
@@ -58,6 +101,8 @@ namespace globals
     inline std::string animePicturesIMGDNS =    "images.anime-pictures.net:443:172.67.160.246";
 
     inline std::string smtgBooruDNS =           "smtgbooru.org:80:3.130.86.89";
+
+    inline std::string yandereDNS =             "yande.re:443:198.251.89.183";
 
 
     inline std::string sslCertificate =         "";                             // Certificate used for tor connections (expected .crt file)
@@ -82,6 +127,7 @@ namespace globals
     inline Qt::CheckState useAnimePicturesTor =        Qt::CheckState::Unchecked;
     inline Qt::CheckState useSmtgBooruTor =            Qt::CheckState::Unchecked;
     inline Qt::CheckState useAllTor =                  Qt::CheckState::Unchecked;
+    inline Qt::CheckState useYandereTor =              Qt::CheckState::Unchecked;
 
     // inline scuff::Semaphore globalSem(globals::maxThreads);
 

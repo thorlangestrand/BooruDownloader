@@ -21,11 +21,24 @@ bool saveGlobals()
 
     std::ofstream out(workablePath + "\\config.scuff");
 
+    std::string outSaner(workablePath+ "\\config.json");
+
     if (!out.is_open())
     {
         Warn("Failed to open config file");
         return false;
     }
+
+    scuff::json root = scuff::createRootNode();
+
+    root.addPureData(globals::saveKeys::gelbooruBasePathEnum, globals::gelbooruBasePath.toStdString().c_str());
+    root.addPureData(globals::saveKeys::danbooruBasePathEnum,globals::danbooruBasePath.toStdString().c_str());
+    root.addPureData(, globals::r34BasePath.toStdString().c_str());
+    root.addPureData("animePicturesBasePath",globals::animePicturesBasePath.toStdString().c_str());
+    root.addPureData("smtgbooruBasePath", globals::smtgbooruBasePath.toStdString().c_str());
+    root.addPureData("yandereBasePath",globals::yandereBasePath.toStdString().c_str());
+
+    scuff::saveToFile(outSaner.c_str(), root);
 
     out
     << globals::gelbooruBasePath.toStdString() << "\n"

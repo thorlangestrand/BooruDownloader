@@ -390,7 +390,7 @@ void MainWindow::on_sendPushButton_clicked()
 
         break;
     }
-    case Services::Yandere : {
+    case Services::Yandere: {
         std::vector<std::string> dataStrings = {};
 
         for (size_t i = 0; i < pagesCount; ++i)
@@ -404,15 +404,14 @@ void MainWindow::on_sendPushButton_clicked()
             }
 
             std::stringstream ss;
-            ss << "http://www.smtgbooru.org/index.php?q=post/list/" << sanitizedTags.toStdString() << "/" << i;
-
+            ss << "https://yande.re/post.json?page=" << i << "&tags=" << sanitizedTags.toStdString();
 
             std::string url = ss.str();
             std::regex removeSpaces("[ ]");
             url = std::regex_replace(url, removeSpaces, "%20");
             std::string resBuffer = "";
 
-            if (globals::useAllTor || globals::useSmtgBooruTor)
+            if (globals::useAllTor || globals::useYandereTor)
             {
                 if (!checkTorConnection())
                 {
@@ -421,7 +420,7 @@ void MainWindow::on_sendPushButton_clicked()
                     return;
                 }
 
-                struct curl_slist* dns = curl_slist_append(NULL, globals::smtgBooruDNS.c_str());
+                struct curl_slist* dns = curl_slist_append(NULL, globals::yandereDNS.c_str());
 
                 if (!curlDownloadToStringBufferTor(curl, dns, url, resBuffer))
                 {
@@ -442,7 +441,7 @@ void MainWindow::on_sendPushButton_clicked()
 
         }
 
-        if (!smtgDownloader(dataStrings, validFilePath.toStdString()))
+        if (!yandereDownloader(dataStrings, validFilePath.toStdString()))
         {
             resetConsoleText();
             return;

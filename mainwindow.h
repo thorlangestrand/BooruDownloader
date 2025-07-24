@@ -23,6 +23,7 @@
 #include "servicesEnums.h"              // IWYU pragma: export
 #include "gelbooruDownloader.h"
 #include "smtgDownloader.h"             // IWYU pragma: export
+#include "yandereDownloader.h"
 #include "saveGlobals.h"                // IWYU pragma: export
 #include "globals.h"
 #include "curlDownloadToStringBuffer.h"

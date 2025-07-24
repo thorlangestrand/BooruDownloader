@@ -10,6 +10,7 @@
 #include "globals.h"        // IWYU pragma: export
 #include "warn.h"           // IWYU pragma: export
 #include "utf8_parse.h"     // IWYU pragma: export
+#include "json.h"           // IWYU pragma: export
 
 ///
 /// \brief saveGlobals
