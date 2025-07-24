@@ -4,6 +4,8 @@
 #include <QString>
 
 #include <string> // IWYU pragma: export
+#include <map>
+
 // #include "semaphore.h"
 ///
 /// \brief globals
@@ -56,6 +58,55 @@ namespace globals
         curlUserAgentEnum               =       37,
         defaultServiceEnum              =       38
     };
+
+    // Yes this is completely schizophrenic, I am well aware
+    inline std::map<saveKeys,std::string> keyNameMap ({
+
+        {gelbooruBasePathEnum,          "gelbooruBasePath"},
+        {danbooruBasePathEnum,          "danbooruBasePath"},
+        {r34BasePathEnum,               "r34BasePath"},
+        {animePicturesBasePathEnum,     "animePicturesBasePath"},
+        {yandereBasePathEnum,           "yandereBasePath"},
+        {smtgbooruBasePathEnum,         "smtgbooruBasePath"},
+        {gelbooruPageDefaultEnum,       "gelbooruPageDefault"},
+        {danbooruPageDefaultEnum,       "danbooruPageDefault"},
+        {danbooruNumDefaultEnum,        "danbooruNumDefault"},
+        {r34PageDefaultEnum,            "r34PageDefault"},
+        {animePicturesPageDefaultEnum,  "animePicturesPageDefault"},
+        {smtgbooruPageDefaultEnum,      "smtgbooruPageDefault"},
+        {gelbooruIPEnum,                "gelbooruIP"},
+        {gelbooruIMG3IPEnum,            "gelbooruIMG3IP"},
+        {gelbooruVIDIPEnum,             "gelbooruVIDIP"},
+        {danbooruIPEnum,                "danbooruIP"},
+        {danbooruCDNIPEnum,             "danbooruCDNIP"},
+        {r34IPEnum,                     "r34IP"},
+        {r34WIMGIPEnum,                 "r34WIMGIP"},
+        {animePicturesIPEnum,           "animePicturesIP"},
+        {animePicturesIMGIPEnum,        "animePicturesIMGIP"},
+        {smtgBooruIPEnum,               "smtgBooruIP"},
+        {gelbooruDNSEnum,               "gelbooruDNS"},
+        {gelbooruIMG3DNSEnum,           "gelbooruIMG3DNS"},
+        {gelbooruVIDDNSEnum,            "gelbooruVIDDNS"},
+        {danbooruDNSEnum,               "danbooruDNS"},
+        {danbooruCDNDNSEnum,            "danbooruCDNDNS"},
+        {r34DNSEnum,                    "r34DNS"},
+        {r34WIMGDNSEnum,                "r34WIMGDNS"},
+        {animePicturesDNSEnum,          "animePicturesDNS"},
+        {animePicturesIMGDNSEnum,       "animePicturesIMGDNS"},
+        {smtgBooruDNSEnum,              "smtgBooruDNS"},
+        {yandereDNSEnum,                "yandereDNS"},
+        {sslCertificateEnum              ,"sslCertificate"},
+        {torProxyEnum                    ,"torProxy"},
+        {danbooruUserEnum                ,"danbooruUser"},
+        {danbooruKeyEnum                 ,"danbooruKey"},
+        {curlUserAgentEnum               ,"curlUserAgent"},
+        {defaultServiceEnum,"defaultServiceEnum"},
+
+    });
+
+
+
+
 
     inline QString gelbooruBasePath =           "";       // Root savepath for the various services
     inline QString danbooruBasePath =           "";       // !IMPORTANT!
