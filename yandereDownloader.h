@@ -1,5 +1,6 @@
 #ifndef YANDEREDOWNLOADER_H
 #define YANDEREDOWNLOADER_H
+
 #include <string>
 #include <sstream>                      // IWYU pragma: export
 #include <filesystem>                   // IWYU pragma: export

@@ -390,10 +390,69 @@ void MainWindow::on_sendPushButton_clicked()
 
         break;
     }
+    case Services::Yandere : {
+        std::vector<std::string> dataStrings = {};
+
+        for (size_t i = 0; i < pagesCount; ++i)
+        {
+            CURL* curl = curl_easy_init();
+            if (!curl)
+            {
+                Warn("Critical error failed to initialize curl!");
+                resetConsoleText();
+                return;
+            }
+
+            std::stringstream ss;
+            ss << "http://www.smtgbooru.org/index.php?q=post/list/" << sanitizedTags.toStdString() << "/" << i;
+
+
+            std::string url = ss.str();
+            std::regex removeSpaces("[ ]");
+            url = std::regex_replace(url, removeSpaces, "%20");
+            std::string resBuffer = "";
+
+            if (globals::useAllTor || globals::useSmtgBooruTor)
+            {
+                if (!checkTorConnection())
+                {
+                    Warn("Tor connection failed!");
+                    resetConsoleText();
+                    return;
+                }
+
+                struct curl_slist* dns = curl_slist_append(NULL, globals::smtgBooruDNS.c_str());
+
+                if (!curlDownloadToStringBufferTor(curl, dns, url, resBuffer))
+                {
+                    resetConsoleText();
+                    return;
+                }
+            }
+            else
+            {
+                if (!curlDownloadToStringBuffer(curl, url, resBuffer))
+                {
+                    resetConsoleText();
+                    return;
+                }
+            }
+
+            dataStrings.push_back(resBuffer);
+
+        }
+
+        if (!smtgDownloader(dataStrings, validFilePath.toStdString()))
+        {
+            resetConsoleText();
+            return;
+        }
+        break;
+    }
     default: {
         Warn("Unknown service selected, this message should never be shown");
         break;
-        }
+    }
     }
     resetConsoleText();
 }
@@ -401,8 +460,8 @@ void MainWindow::on_sendPushButton_clicked()
 
 void MainWindow::on_chooseServiceComboBox_currentIndexChanged(int index)
 {
-switch(index)
-{
+    switch(index)
+    {
     case Services::Gelbooru: {
         ui->pagesLineEdit->setText(globals::gelbooruPageDefault);
         ui->numLineEdit->setText("ヾ(≧▽≦*)o");
