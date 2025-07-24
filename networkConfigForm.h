@@ -16,10 +16,10 @@
 #include <QPushButton>
 #include <QCheckBox>
 
-#include <vector>
-#include <string.h>
+#include <vector>           // IWYU pragma: export
+#include <string.h>         // IWYU pragma: export
 
-#include "globals.h"
+#include "globals.h"        // IWYU pragma: export
 
 class ConfigForm;
 class networkConfigForm : public QDialog {

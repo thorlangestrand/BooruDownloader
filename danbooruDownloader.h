@@ -2,18 +2,18 @@
 #define DANBOORUDOWNLOADER_H
 
 #include <string>
-#include <sstream>
-#include <filesystem>
+#include <sstream>                          // IWYU pragma: export
+#include <filesystem>                       // IWYU pragma: export
 #include <curl/curl.h>
-#include <future>
+#include <future>                           // IWYU pragma: export
 #include <vector>
 
-#include "json.h"
+#include "json.h"                           // IWYU pragma: export
 #include "globals.h"
 #include "curlWriteFunctions.h"
-#include "curlDownloadToFilePointer.h"
+#include "curlDownloadToFilePointer.h"      // IWYU pragma: export
 #include "semaphore.h"
-#include "warn.h"
+#include "warn.h"                           // IWYU pragma: export
 
 #include <qDebug>
 ///

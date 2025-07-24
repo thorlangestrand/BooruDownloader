@@ -1,8 +1,8 @@
 #ifndef WARN_H
 #define WARN_H
 
-#include <QString>
-#include <QMessageBox>
+#include <QString> // IWYU pragma: export
+#include <QMessageBox> // IWYU pragma: export
 
 ///
 /// \brief Warn

@@ -78,7 +78,6 @@ bool danbooruDownloader(std::vector<std::string> dataStrings, std::string basePa
 
     }
 
-
     if (!std::filesystem::exists(basePath))
     {
         if (!std::filesystem::create_directory(basePath))

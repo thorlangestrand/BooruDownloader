@@ -2,18 +2,18 @@
 #define R34DOWNLOADER_H
 
 #include <string>
-#include <sstream>
+#include <sstream>                          // IWYU pragma: export
 #include <curl/curl.h>
-#include <thread>
-#include <filesystem>
-#include <future>
+#include <thread>                           // IWYU pragma: export
+#include <filesystem>                       // IWYU pragma: export
+#include <future>                           // IWYU pragma: export
 
-#include "json.h"
+#include "json.h"                           // IWYU pragma: export
 #include "curlWriteFunctions.h"
 #include "globals.h"
 #include "semaphore.h"
-#include "curlDownloadToFilePointer.h"
-#include "warn.h"
+#include "curlDownloadToFilePointer.h"      // IWYU pragma: export
+#include "warn.h"                           // IWYU pragma: export
 
 ///
 /// \brief r34Downloader

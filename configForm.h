@@ -15,12 +15,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 
-#include <vector>
-#include <string.h>
-
-#include "globals.h"
 #include "networkConfigForm.h"
-#include "saveGlobals.h"
 
 class MainWindow;
 
@@ -35,6 +30,7 @@ public:
     QLabel* danboouBasePathLabel =                  nullptr;
     QLabel* r34BasePathLabel =                      nullptr;
     QLabel* animePicturesBasePathLabel =            nullptr;
+    QLabel* yandereBasePathLabel =                  nullptr;
     QLabel* smtgbooruBasePathLabel =                nullptr;
     QLabel* gelbooruPageDefaultLabel =              nullptr;
     QLabel* danboorupageDefaultLabel =              nullptr;
@@ -43,6 +39,7 @@ public:
     QLabel* animePicturesPageDefaultLabel =         nullptr;
     QLabel* smtgbooruPageDefaultLabel =             nullptr;
     QLabel* danbooruKeyLabel =                      nullptr;
+    QLabel* danbooruUserLabel =                     nullptr;
     QLabel* maxThreadsLabel =                       nullptr;
     QLabel* defaultServiceLabel =                   nullptr;
 
@@ -51,6 +48,7 @@ public:
     QLineEdit* danboouBasePath =                    nullptr;
     QLineEdit* r34BasePath =                        nullptr;
     QLineEdit* animePicturesBasePath =              nullptr;
+    QLineEdit* yandereBasePath =                    nullptr;
     QLineEdit* smtgbooruBasePath =                  nullptr;
     QLineEdit* gelbooruPageDefault =                nullptr;
     QLineEdit* danboorupageDefault =                nullptr;
@@ -60,6 +58,7 @@ public:
     QLineEdit* smtgbooruPageDefault =               nullptr;
     QPushButton* networkConfig =                    nullptr;
     QLineEdit* danbooruKey =                        nullptr;
+    QLineEdit* danbooruUser =                       nullptr;
     QLineEdit* maxThreads =                         nullptr;
     QComboBox* defaultService =                     nullptr;
 

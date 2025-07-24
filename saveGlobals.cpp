@@ -32,6 +32,7 @@ bool saveGlobals()
     << globals::danbooruBasePath.toStdString() << "\n"
     << globals::r34BasePath.toStdString() << "\n"
     << globals::animePicturesBasePath.toStdString() << "\n"
+    << globals::yandereBasePath.toStdString() << "\n"
     << globals::smtgbooruBasePath.toStdString() << "\n"
 
     << globals::gelbooruPageDefault.toStdString() << "\n"

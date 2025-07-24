@@ -1,15 +1,15 @@
 #ifndef INITGLOBALS_H
 #define INITGLOBALS_H
 
-#include <filesystem>
+#include <filesystem>       // IWYU pragma: export
 #include <shlobj.h>
 #include <combaseapi.h>
 #include <knownfolders.h>
 
-#include "utf8_parse.h"
-#include "globals.h"
-#include "saveGlobals.h"
-#include "warn.h"
+#include "utf8_parse.h"     // IWYU pragma: export
+#include "globals.h"        // IWYU pragma: export
+#include "saveGlobals.h"    // IWYU pragma: export
+#include "warn.h"           // IWYU pragma: export
 
 ///
 /// \brief initGlobals

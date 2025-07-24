@@ -31,7 +31,8 @@ SOURCES += \
     semaphore.cpp \
     smtgDownloader.cpp \
     utf8_parse.cpp \
-    warn.cpp
+    warn.cpp \
+    yandereDownloader.cpp
 
 HEADERS += \
     animePicturesDownloader.h \
@@ -67,7 +68,8 @@ HEADERS += \
     servicesEnums.h \
     smtgDownloader.h \
     utf8_parse.h \
-    warn.h
+    warn.h \
+    yandereDownloader.h
 
 FORMS += \
     mainwindow.ui

@@ -4,9 +4,9 @@
 #include <string>
 #include <curl/curl.h>
 
-#include "curlWriteFunctions.h"
-#include "globals.h"
-#include "warn.h"
+#include "curlWriteFunctions.h"     // IWYU pragma: export
+#include "globals.h"                // IWYU pragma: export
+#include "warn.h"                   // IWYU pragma: export
 
 ///
 /// \brief curlDownloadToFilePointer

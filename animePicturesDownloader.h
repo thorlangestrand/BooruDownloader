@@ -3,17 +3,17 @@
 
 #include <vector>
 #include <string>
-#include <string.h>
-#include <future>
-#include <sstream>
-#include <filesystem>
+#include <string.h>                     // IWYU pragma: export
+#include <future>                       // IWYU pragma: export
+#include <sstream>                      // IWYU pragma: export
+#include <filesystem>                   // IWYU pragma: export
 #include <curl/curl.h>
 
-#include "warn.h"
-#include "semaphore.h"
-#include "curlWriteFunctions.h"
-#include "globals.h"
-#include "curlDownloadToFilePointer.h"
+#include "warn.h"                       // IWYU pragma: export
+#include "semaphore.h"                  // IWYU pragma: export
+#include "curlWriteFunctions.h"         // IWYU pragma: export
+#include "globals.h"                    // IWYU pragma: export
+#include "curlDownloadToFilePointer.h"  // IWYU pragma: export
 
 struct imageData;
 

@@ -2,19 +2,19 @@
 #define SMTGDOWNLOADER_H
 
 #include <curl/curl.h>
-#include <iostream>
-#include <regex>
-#include <sstream>
+#include <iostream>                         // IWYU pragma: export
+#include <regex>                            // IWYU pragma: export
+#include <sstream>                          // IWYU pragma: export
 #include <sys/stat.h>
-#include <stdint.h>
-#include <filesystem>
-#include <future>
+#include <stdint.h>                         // IWYU pragma: export
+#include <filesystem>                       // IWYU pragma: export
+#include <future>                           // IWYU pragma: export
 #include <vector>
 
 #include "globals.h"
-#include "warn.h"
+#include "warn.h"                           // IWYU pragma: export
 #include "curlWriteFunctions.h"
-#include "curlDownloadToFilePointer.h"
+#include "curlDownloadToFilePointer.h"      // IWYU pragma: export
 #include "semaphore.h"
 
 struct smtgImageData;

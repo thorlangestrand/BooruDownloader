@@ -2,7 +2,7 @@
 #define CURLWRITEFUNCTIONS_H
 
 #include <stddef.h>
-#include <string>
+#include <string> // IWYU pragma: export
 
 ///
 /// \brief WriteCallbackString

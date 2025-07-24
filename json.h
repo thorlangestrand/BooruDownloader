@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
-#include <algorithm>
+#include <algorithm> // IWYU pragma: export fucking cancer lmao
 #include <cctype>
 
 namespace scuff {

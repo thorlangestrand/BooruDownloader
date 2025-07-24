@@ -1,7 +1,7 @@
 #ifndef UTF8_PARSE_H
 #define UTF8_PARSE_H
 
-#include <string>
+#include <string>           // IWYU pragma: export
 #include <stringapiset.h>
 
 ///

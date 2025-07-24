@@ -4,7 +4,7 @@
 #include <QString>
 
 #include <string>
-#include <regex>
+#include <regex>    // IWYU pragma: export
 
 ///
 /// \brief sanitizeTags

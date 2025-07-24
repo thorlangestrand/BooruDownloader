@@ -3,9 +3,9 @@
 
 #include <curl/curl.h>
 
-#include "json.h"
-#include "globals.h"
-#include "curlWriteFunctions.h"
+#include "json.h"                   // IWYU pragma: export
+#include "globals.h"                // IWYU pragma: export
+#include "curlWriteFunctions.h"     // IWYU pragma: export
 
 ///
 /// \brief checkTorConnection

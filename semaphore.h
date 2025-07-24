@@ -1,8 +1,8 @@
 #ifndef SEMAPHORE_H
 #define SEMAPHORE_H
 
-#include <chrono>
-#include <thread>
+#include <chrono>       // IWYU pragma: export
+#include <thread>       // IWYU pragma: export
 #include <mutex>
 #include <condition_variable>
 

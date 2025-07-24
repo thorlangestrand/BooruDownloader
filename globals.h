@@ -3,8 +3,8 @@
 
 #include <QString>
 
-#include <string>
-#include "semaphore.h"
+#include <string> // IWYU pragma: export
+// #include "semaphore.h"
 ///
 /// \brief globals
 ///
@@ -18,6 +18,7 @@ namespace globals
     inline QString danbooruBasePath =           "";       // !IMPORTANT!
     inline QString r34BasePath =                "";       // The program EXPECTS these to exist and
     inline QString animePicturesBasePath =      "";       // will crash if they do not
+    inline QString yandereBasePath =            "";
     inline QString smtgbooruBasePath =          "";
 
     inline QString gelbooruPageDefault =        "2";      // Default amount of pages to download for gelbooru

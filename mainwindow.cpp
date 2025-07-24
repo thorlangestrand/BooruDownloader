@@ -482,6 +482,7 @@ void MainWindow::acceptForm(ConfigForm* cfgFrm)
     globals::r34PageDefault =               cfgFrm->r34PageDefault->text();
     globals::animePicturesPageDefault =     cfgFrm->animePicturesPageDefault->text();
     globals::smtgbooruPageDefault =         cfgFrm->smtgbooruPageDefault->text();
+    globals::danbooruUser =                 cfgFrm->danbooruUser->text().toStdString();
     globals::danbooruKey =                  cfgFrm->danbooruKey->text().toStdString();
     globals::maxThreads =                   cfgFrm->maxThreads->text().toInt();
     globals::defaultService =               cfgFrm->defaultService->currentIndex();

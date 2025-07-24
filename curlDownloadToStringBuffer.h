@@ -6,7 +6,7 @@
 
 #include "curlWriteFunctions.h"
 #include "globals.h"
-#include "warn.h"
+#include "warn.h"       // IWYU pragma: export
 
 ///
 /// \brief curlDownloadToStringBuffer

@@ -138,6 +138,7 @@ bool initGlobals()
     std::getline(in, buf); globals::danbooruBasePath =          QString::fromStdString(buf);
     std::getline(in, buf); globals::r34BasePath =               QString::fromStdString(buf);
     std::getline(in, buf); globals::animePicturesBasePath =     QString::fromStdString(buf);
+    std::getline(in, buf); globals::yandereBasePath =           QString::fromStdString(buf);
     std::getline(in, buf); globals::smtgbooruBasePath =         QString::fromStdString(buf);
 
     std::getline(in, buf); globals::gelbooruPageDefault =       QString::fromStdString(buf);

@@ -8,22 +8,22 @@
 #include <QFile>
 #include <QEventLoop>
 
-#include <regex>
-#include <sstream>
+#include <regex>                        // IWYU pragma: export
+#include <sstream>                      // IWYU pragma: export
 #include <curl/curl.h>
 
-#include "globals.h"
+#include "globals.h"                    // IWYU pragma: export
 #include "configForm.h"
-#include "checkTorConnection.h"
-#include "r34Downloader.h"
+#include "checkTorConnection.h"         // IWYU pragma: export
+#include "r34Downloader.h"              // IWYU pragma: export
 #include "animePicturesDownloader.h"
 #include "danbooruDownloader.h"
-#include "isNum.hpp"
-#include "sanitizeTags.h"
-#include "servicesEnums.h"
+#include "isNum.hpp"                    // IWYU pragma: export
+#include "sanitizeTags.h"               // IWYU pragma: export
+#include "servicesEnums.h"              // IWYU pragma: export
 #include "gelbooruDownloader.h"
-#include "smtgDownloader.h"
-#include "saveGlobals.h"
+#include "smtgDownloader.h"             // IWYU pragma: export
+#include "saveGlobals.h"                // IWYU pragma: export
 #include "globals.h"
 #include "curlDownloadToStringBuffer.h"
 
