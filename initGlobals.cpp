@@ -65,8 +65,14 @@
  *
  * [INT]            defaultService
  * [INT]            maxThreads
+ *
+ * It's funny how laughably outdated this "chart" is at this point, so I'll just keep it up
+ * Won't be trying to update it as everything now properly explains itself without needing a goddamned legend
+ * Good code should comment itself, and while I'm not going to toot my own horn too much I do believe this is pretty legible and clear
+ * ...ok it's still a bit decroded but it's better! And it makes sense and it's typesafe!
+ * Unless someone fucks with the config file directly but... bah. At that point it's your own damned fault if the program doesn't want to boot
  */
-#include <QDebug>
+
 bool initGlobals()
 {
     LPWSTR path = NULL;
@@ -96,31 +102,7 @@ bool initGlobals()
         }
     }
 
-    // If no config file found create one and initialize with default values
-    if (!std::filesystem::exists(workablePath + "\\config.scuff"))
-    {
-        Warn("No config file detected, using default configuration");
 
-        LPWSTR pPath = NULL;
-        HRESULT pHr = SHGetKnownFolderPath(FOLDERID_Pictures, 0, NULL, &pPath);
-
-        CoTaskMemFree(pPath);
-        std::string basePath = utf8_encode(pPath);
-
-        if (!SUCCEEDED(pHr))
-        {
-            Warn("Failed to locate Pictures folder");
-            return saveGlobals();
-        }
-
-        globals::gelbooruBasePath =      QString::fromStdString(basePath);
-        globals::danbooruBasePath =      QString::fromStdString(basePath);
-        globals::r34BasePath =           QString::fromStdString(basePath);
-        globals::animePicturesBasePath = QString::fromStdString(basePath);
-        globals::smtgbooruBasePath =     QString::fromStdString(basePath);
-
-        return saveGlobals();
-    }
 
     if (!std::filesystem::exists(workablePath + "\\config.json"))
     {
@@ -148,11 +130,6 @@ bool initGlobals()
 
     }
 
-    std::string outSaner(workablePath + "\\config.json");
-
-    std::ifstream in(workablePath + "\\config.scuff");
-
-
     uint64_t fileSize = std::filesystem::file_size(workablePath+"\\config.json");
     std::string content(fileSize, '\0');
     std::ifstream jsonStream(workablePath + "\\config.json");
@@ -163,10 +140,8 @@ bool initGlobals()
     }
 
     jsonStream.read(&content[0],fileSize);
-    qDebug() << content.c_str();
 
     scuff::json configData = scuff::parseJson(content.c_str());
-    qDebug() << QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::yandereBasePathEnum]]);
 
     // Root folders
     globals::gelbooruBasePath =          QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::gelbooruBasePathEnum]]);
@@ -213,15 +188,14 @@ bool initGlobals()
     globals::yandereDNS =                static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::yandereDNSEnum]]);
 
 
-    // Tor schizophrenia (not added yet ig lol)
-
-    globals::useGelbooruTor = static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useGelbooruTorEnum]]));
-    globals::useDanbooruTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useDanbooruTorEnum]]));
-    globals::useR34Tor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useR34TorEnum]]));
-    globals::useAnimePicturesTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useAnimePicturesTorEnum]]));
-    globals::useSmtgBooruTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useSmtgBooruTorEnum]]));
-    globals::useYandereTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useYandereTorEnum]]));
-    globals::useAllTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useAllTorEnum]]));
+    // Tor schizophrenia
+    globals::useGelbooruTor =            static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useGelbooruTorEnum]]));
+    globals::useDanbooruTor =            static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useDanbooruTorEnum]]));
+    globals::useR34Tor =                 static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useR34TorEnum]]));
+    globals::useAnimePicturesTor =       static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useAnimePicturesTorEnum]]));
+    globals::useSmtgBooruTor =           static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useSmtgBooruTorEnum]]));
+    globals::useYandereTor =             static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useYandereTorEnum]]));
+    globals::useAllTor =                 static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useAllTorEnum]]));
 
 
     // General configuration
@@ -236,87 +210,119 @@ bool initGlobals()
     globals::maxThreads =                configData[globals::keyNameMap[globals::saveKeys::maxThreadsEnum]];
     globals::defaultService =            configData[globals::keyNameMap[globals::saveKeys::defaultServiceEnum]];
 
-    // globals::= QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::]]);
-    // globals::= QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::]]);
-
-
-
     configData.erase(); // Always clean up after yourself!
 
     return true;
-    if (!in.is_open())
-    {
-        Warn("Failed to open config file");
-        return false;
-    }
 
-    /// Here I'm just naively assuming no one's gonna be messing with the config file
-    std::string buf = "";
-    std::getline(in, buf); globals::gelbooruBasePath =          QString::fromStdString(buf);
-    std::getline(in, buf); globals::danbooruBasePath =          QString::fromStdString(buf);
-    std::getline(in, buf); globals::r34BasePath =               QString::fromStdString(buf);
-    std::getline(in, buf); globals::animePicturesBasePath =     QString::fromStdString(buf);
-    std::getline(in, buf); globals::yandereBasePath =           QString::fromStdString(buf);
-    std::getline(in, buf); globals::smtgbooruBasePath =         QString::fromStdString(buf);
+    // Gonna keep this here as I guess a reminder of what not to do
+    // Maybe in the future I'll be botherhed to save it in a binary format and do the same for my json implementation
+    // We'll see!
+    //
+    //
+    // std::string outSaner(workablePath + "\\config.json");
+    // std::ifstream in(workablePath + "\\config.scuff");
+    //
+    // If no config file found create one and initialize with default values
+    // if (!std::filesystem::exists(workablePath + "\\config.scuff"))
+    // {
+    //     Warn("No config file detected, using default configuration");
 
-    std::getline(in, buf); globals::gelbooruPageDefault =       QString::fromStdString(buf);
-    std::getline(in, buf); globals::danbooruPageDefault =       QString::fromStdString(buf);
-    std::getline(in, buf); globals::danbooruNumDefault =        QString::fromStdString(buf);
-    std::getline(in, buf); globals::r34PageDefault =            QString::fromStdString(buf);
-    std::getline(in, buf); globals::animePicturesPageDefault =  QString::fromStdString(buf);
-    std::getline(in, buf); globals::smtgbooruPageDefault =      QString::fromStdString(buf);
+    //     LPWSTR pPath = NULL;
+    //     HRESULT pHr = SHGetKnownFolderPath(FOLDERID_Pictures, 0, NULL, &pPath);
 
-    std::getline(in, globals::gelbooruIP);
-    std::getline(in, globals::gelbooruIMG3IP);
-    std::getline(in, globals::gelbooruVIDIP);
+    //     CoTaskMemFree(pPath);
+    //     std::string basePath = utf8_encode(pPath);
 
-    std::getline(in, globals::danbooruIP);
-    std::getline(in, globals::danbooruCDNIP);
+    //     if (!SUCCEEDED(pHr))
+    //     {
+    //         Warn("Failed to locate Pictures folder");
+    //         return saveGlobals();
+    //     }
 
-    std::getline(in, globals::r34IP);
-    std::getline(in, globals::r34WIMGIP);
+    //     globals::gelbooruBasePath =      QString::fromStdString(basePath);
+    //     globals::danbooruBasePath =      QString::fromStdString(basePath);
+    //     globals::r34BasePath =           QString::fromStdString(basePath);
+    //     globals::animePicturesBasePath = QString::fromStdString(basePath);
+    //     globals::smtgbooruBasePath =     QString::fromStdString(basePath);
 
-    std::getline(in, globals::animePicturesIP);
-    std::getline(in, globals::animePicturesIMGIP);
-
-    std::getline(in, globals::smtgBooruIP);
-
-    std::getline(in, globals::gelbooruDNS);
-    std::getline(in, globals::gelbooruIMG3DNS);
-    std::getline(in, globals::gelbooruVIDDNS);
-
-    std::getline(in, globals::danbooruDNS);
-    std::getline(in, globals::danbooruCDNDNS);
-
-    std::getline(in, globals::r34DNS);
-    std::getline(in, globals::r34WIMGDNS);
-
-    std::getline(in, globals::animePicturesDNS);
-    std::getline(in, globals::animePicturesIMGDNS);
-
-    std::getline(in, globals::smtgBooruDNS);
-
-    std::getline(in, globals::yandereDNS);
+    //     return saveGlobals();
+    // }
 
 
-    std::getline(in, buf); globals::useGelbooruTor =            (Qt::CheckState)std::stoi(buf);
-    std::getline(in, buf); globals::useDanbooruTor =            (Qt::CheckState)std::stoi(buf);
-    std::getline(in, buf); globals::useR34Tor =                 (Qt::CheckState)std::stoi(buf);
-    std::getline(in, buf); globals::useAnimePicturesTor =       (Qt::CheckState)std::stoi(buf);
-    std::getline(in, buf); globals::useSmtgBooruTor =           (Qt::CheckState)std::stoi(buf);
-    std::getline(in, buf); globals::useYandereTor =             (Qt::CheckState)std::stoi(buf);
-    std::getline(in, buf); globals::useAllTor =                 (Qt::CheckState)std::stoi(buf);
+    //
+    // if (!in.is_open())
+    // {
+    //     Warn("Failed to open config file");
+    //     return false;
+    // }
 
-    std::getline(in, globals::sslCertificate);
-    std::getline(in, globals::torProxy);
-    std::getline(in, globals::danbooruUser);
-    std::getline(in, globals::danbooruKey);
-    std::getline(in, globals::curlUserAgent);
-    std::getline(in, buf); globals::defaultService =            std::stoi(buf);
-    std::getline(in, buf); globals::maxThreads =                std::stoi(buf);
+    // /// Here I'm just naively assuming no one's gonna be messing with the config file
+    // std::string buf = "";
+    // std::getline(in, buf); globals::gelbooruBasePath =          QString::fromStdString(buf);
+    // std::getline(in, buf); globals::danbooruBasePath =          QString::fromStdString(buf);
+    // std::getline(in, buf); globals::r34BasePath =               QString::fromStdString(buf);
+    // std::getline(in, buf); globals::animePicturesBasePath =     QString::fromStdString(buf);
+    // std::getline(in, buf); globals::yandereBasePath =           QString::fromStdString(buf);
+    // std::getline(in, buf); globals::smtgbooruBasePath =         QString::fromStdString(buf);
 
-    // globals::globalSem.setThreads(globals::maxThreads);
-    in.close();
+    // std::getline(in, buf); globals::gelbooruPageDefault =       QString::fromStdString(buf);
+    // std::getline(in, buf); globals::danbooruPageDefault =       QString::fromStdString(buf);
+    // std::getline(in, buf); globals::danbooruNumDefault =        QString::fromStdString(buf);
+    // std::getline(in, buf); globals::r34PageDefault =            QString::fromStdString(buf);
+    // std::getline(in, buf); globals::animePicturesPageDefault =  QString::fromStdString(buf);
+    // std::getline(in, buf); globals::smtgbooruPageDefault =      QString::fromStdString(buf);
 
-    return true;
+    // std::getline(in, globals::gelbooruIP);
+    // std::getline(in, globals::gelbooruIMG3IP);
+    // std::getline(in, globals::gelbooruVIDIP);
+
+    // std::getline(in, globals::danbooruIP);
+    // std::getline(in, globals::danbooruCDNIP);
+
+    // std::getline(in, globals::r34IP);
+    // std::getline(in, globals::r34WIMGIP);
+
+    // std::getline(in, globals::animePicturesIP);
+    // std::getline(in, globals::animePicturesIMGIP);
+
+    // std::getline(in, globals::smtgBooruIP);
+
+    // std::getline(in, globals::gelbooruDNS);
+    // std::getline(in, globals::gelbooruIMG3DNS);
+    // std::getline(in, globals::gelbooruVIDDNS);
+
+    // std::getline(in, globals::danbooruDNS);
+    // std::getline(in, globals::danbooruCDNDNS);
+
+    // std::getline(in, globals::r34DNS);
+    // std::getline(in, globals::r34WIMGDNS);
+
+    // std::getline(in, globals::animePicturesDNS);
+    // std::getline(in, globals::animePicturesIMGDNS);
+
+    // std::getline(in, globals::smtgBooruDNS);
+
+    // std::getline(in, globals::yandereDNS);
+
+
+    // std::getline(in, buf); globals::useGelbooruTor =            (Qt::CheckState)std::stoi(buf);
+    // std::getline(in, buf); globals::useDanbooruTor =            (Qt::CheckState)std::stoi(buf);
+    // std::getline(in, buf); globals::useR34Tor =                 (Qt::CheckState)std::stoi(buf);
+    // std::getline(in, buf); globals::useAnimePicturesTor =       (Qt::CheckState)std::stoi(buf);
+    // std::getline(in, buf); globals::useSmtgBooruTor =           (Qt::CheckState)std::stoi(buf);
+    // std::getline(in, buf); globals::useYandereTor =             (Qt::CheckState)std::stoi(buf);
+    // std::getline(in, buf); globals::useAllTor =                 (Qt::CheckState)std::stoi(buf);
+
+    // std::getline(in, globals::sslCertificate);
+    // std::getline(in, globals::torProxy);
+    // std::getline(in, globals::danbooruUser);
+    // std::getline(in, globals::danbooruKey);
+    // std::getline(in, globals::curlUserAgent);
+    // std::getline(in, buf); globals::defaultService =            std::stoi(buf);
+    // std::getline(in, buf); globals::maxThreads =                std::stoi(buf);
+
+    // // globals::globalSem.setThreads(globals::maxThreads);
+    // in.close();
+
+    // return true;
 }
