@@ -26,7 +26,8 @@ ConfigForm::ConfigForm(MainWindow* parent)
         "Danbooru",
         "R34",
         "Anime-Pictures",
-        "smtgbooru"
+        "smtgbooru",
+        "Yandere"
     };
 
     // Option labels
@@ -41,6 +42,7 @@ ConfigForm::ConfigForm(MainWindow* parent)
     danbooruNumDefaultLabel =           new QLabel("Danbooru num default");
     r34PageDefaultLabel =               new QLabel("R34 page default");
     animePicturesPageDefaultLabel =     new QLabel("Anime-Pictures page default");
+    yanderePageDefaultLabel =           new QLabel("Yandere page default");
     smtgbooruPageDefaultLabel =         new QLabel("smtgbooru page default");
     danbooruUserLabel =                 new QLabel("Danbooru User");
     danbooruKeyLabel =                  new QLabel("Danbooru Key");
@@ -59,6 +61,7 @@ ConfigForm::ConfigForm(MainWindow* parent)
     danbooruNumDefault =                new QLineEdit(globals::danbooruNumDefault);
     r34PageDefault =                    new QLineEdit(globals::r34PageDefault);
     animePicturesPageDefault =          new QLineEdit(globals::animePicturesPageDefault);
+    yanderePageDefault =                new QLineEdit(globals::yanderePageDefault);
     smtgbooruPageDefault =              new QLineEdit(globals::smtgbooruPageDefault);
     danbooruUser =                      new QLineEdit(globals::danbooruUser.c_str());
     danbooruKey =                       new QLineEdit(globals::danbooruKey.c_str());
@@ -94,14 +97,15 @@ ConfigForm::ConfigForm(MainWindow* parent)
     mainLayout->addWidget(danboorupageDefaultLabel,         7, 0);  mainLayout->addWidget(danboorupageDefault,          7, 1);
     mainLayout->addWidget(danbooruNumDefaultLabel,          8, 0);  mainLayout->addWidget(danbooruNumDefault,           8, 1);
     mainLayout->addWidget(r34PageDefaultLabel,              9, 0);  mainLayout->addWidget(r34PageDefault,               9, 1);
-    mainLayout->addWidget(animePicturesPageDefaultLabel,    10, 0); mainLayout->addWidget(animePicturesPageDefault,    10, 1);
-    mainLayout->addWidget(smtgbooruPageDefaultLabel,        11, 0); mainLayout->addWidget(smtgbooruPageDefault,         11, 1);
-    mainLayout->addWidget(danbooruUserLabel,                12, 0); mainLayout->addWidget(danbooruUser,                 12, 1);
-    mainLayout->addWidget(danbooruKeyLabel,                 13, 0); mainLayout->addWidget(danbooruKey,                  13, 1);
-    mainLayout->addWidget(maxThreadsLabel,                  14, 0); mainLayout->addWidget(maxThreads,                   14, 1);
-    mainLayout->addWidget(defaultServiceLabel,              15, 0); mainLayout->addWidget(defaultService,               15, 1);
-    mainLayout->addWidget(networkConfig,                    16, 1);
-    mainLayout->addWidget(buttonBox, 17, 0, 1, 2);
+    mainLayout->addWidget(animePicturesPageDefaultLabel,    10, 0); mainLayout->addWidget(animePicturesPageDefault,     10, 1);
+    mainLayout->addWidget(yanderePageDefaultLabel,          11, 0); mainLayout->addWidget(yanderePageDefault,           11, 1);
+    mainLayout->addWidget(smtgbooruPageDefaultLabel,        12, 0); mainLayout->addWidget(smtgbooruPageDefault,         12, 1);
+    mainLayout->addWidget(danbooruUserLabel,                13, 0); mainLayout->addWidget(danbooruUser,                 13, 1);
+    mainLayout->addWidget(danbooruKeyLabel,                 14, 0); mainLayout->addWidget(danbooruKey,                  14, 1);
+    mainLayout->addWidget(maxThreadsLabel,                  15, 0); mainLayout->addWidget(maxThreads,                   15, 1);
+    mainLayout->addWidget(defaultServiceLabel,              16, 0); mainLayout->addWidget(defaultService,               16, 1);
+    mainLayout->addWidget(networkConfig,                    17, 1);
+    mainLayout->addWidget(buttonBox, 18, 0, 1, 2);
 
     ConfigForm::setLayout(mainLayout);
     ConfigForm::setWindowTitle("Configure Settings");
@@ -114,12 +118,14 @@ ConfigForm::~ConfigForm()
     delete danboouBasePathLabel;
     delete r34BasePathLabel;
     delete animePicturesBasePathLabel;
+    delete yandereBasePathLabel;
     delete smtgbooruBasePathLabel;
     delete gelbooruPageDefaultLabel;
     delete danboorupageDefaultLabel;
     delete danbooruNumDefaultLabel;
     delete r34PageDefaultLabel;
     delete animePicturesPageDefaultLabel;
+    delete yanderePageDefaultLabel;
     delete smtgbooruPageDefaultLabel;
     delete danbooruUserLabel;
     delete danbooruKeyLabel;
@@ -131,12 +137,14 @@ ConfigForm::~ConfigForm()
     delete danboouBasePath;
     delete r34BasePath;
     delete animePicturesBasePath;
+    delete yandereBasePath;
     delete smtgbooruBasePath;
     delete gelbooruPageDefault;
     delete danboorupageDefault;
     delete danbooruNumDefault;
     delete r34PageDefault;
     delete animePicturesPageDefault;
+    delete yanderePageDefault;
     delete smtgbooruPageDefault;
     delete networkConfig;
     delete danbooruUser;

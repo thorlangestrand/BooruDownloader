@@ -160,6 +160,29 @@ public:
         return *(int *)pData;
     }
 
+    operator unsigned int() const
+    {
+        if (!pureObjectData)
+        {
+            std::cout << "ERROR: attempted int conversion on impure data structure with name " << label << "\n";
+            return 0;
+        }
+        if (pdsType == ScopeDataType::JSNULL)
+        {
+            std::cout << "ERROR: attempted int conversion on nullptr at item with name " << label << "\n";
+            return 0;
+        }
+        if (pdsType == ScopeDataType::STRING)
+        {
+            std::cout << "ERROR: attempted int conversion on string at item with name " << label << "\n";
+            return 0;
+        }
+
+        // Data can only be int, double or bool, all valid conversions
+        // Doing this truncates doubles instead of rounding them so that's something to be aware of
+        return *(unsigned int *)pData;
+    }
+
     operator size_t() const
     {
         if (!pureObjectData)

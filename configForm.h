@@ -37,6 +37,7 @@ public:
     QLabel* danbooruNumDefaultLabel =               nullptr;
     QLabel* r34PageDefaultLabel =                   nullptr;
     QLabel* animePicturesPageDefaultLabel =         nullptr;
+    QLabel* yanderePageDefaultLabel =               nullptr;
     QLabel* smtgbooruPageDefaultLabel =             nullptr;
     QLabel* danbooruKeyLabel =                      nullptr;
     QLabel* danbooruUserLabel =                     nullptr;
@@ -55,6 +56,7 @@ public:
     QLineEdit* danbooruNumDefault =                 nullptr;
     QLineEdit* r34PageDefault =                     nullptr;
     QLineEdit* animePicturesPageDefault =           nullptr;
+    QLineEdit* yanderePageDefault =                 nullptr;
     QLineEdit* smtgbooruPageDefault =               nullptr;
     QPushButton* networkConfig =                    nullptr;
     QLineEdit* danbooruKey =                        nullptr;

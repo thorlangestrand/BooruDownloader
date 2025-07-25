@@ -136,43 +136,43 @@ void json::erase()
 void json::addNode(std::string name, json *object)
 {
     children[name] = object;
-    nChildren++;
+    // nChildren++;
 }
 
 void json::addPureData(const char *name, const char *data)
 {
     children[name] = new json(name, data, true);
-    nChildren++;
+    // nChildren++;
 }
 void json::addPureData(int name, const char *data)
 {
     const char *_name = std::string(std::to_string(name)).c_str();
     children[_name] = new json(_name, data, true);
-    nChildren++;
+    // nChildren++;
 }
 void json::addPureData(const char *name, int data)
 {
 
     children[name] = new json(name, std::string(std::to_string(data)), false);
-    nChildren++;
+    // nChildren++;
 }
 void json::addPureData(int name, int data)
 {
     const char *_name = std::string(std::to_string(name)).c_str();
     children[_name] = new json(_name, std::string(std::to_string(data)), false);
-    nChildren++;
+    // nChildren++;
 }
 
 void json::addPureData(const char *name, bool data)
 {
     children[name] = new json(name, std::string(std::to_string(data)), false);
-    nChildren++;
+    // nChildren++;
 }
 void json::addPureData(int name, bool data)
 {
     const char *_name = std::string(std::to_string(name)).c_str();
     children[_name] = new json(_name, std::string(std::to_string(data)), false);
-    nChildren++;
+    // nChildren++;
 }
 
 // Find label

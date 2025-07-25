@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->chooseServiceComboBox->addItem("R34");
     ui->chooseServiceComboBox->addItem("Anime-Pictures");
     ui->chooseServiceComboBox->addItem("smtgbooru");
+    ui->chooseServiceComboBox->addItem("Yandere");
     ui->chooseServiceComboBox->setCurrentIndex(globals::defaultService);
     QShortcut* exitCtrShiftlW = new QShortcut(QKeySequence("Ctrl+Shift+W"), this);
     QObject::connect(exitCtrShiftlW, &QShortcut::activated, this, [](){ exit(0); });
@@ -85,7 +86,7 @@ void MainWindow::on_sendPushButton_clicked()
             }
 
             std::stringstream ss;
-            ss << "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=" << sanitizedTags.toStdString() << "&pid=" << i;
+            ss << "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=" << sanitizedTags.toStdString() << "&pid=" << i<<"&api_key=9d21663909e8c67fe349f284ca8556210817bcbb53402869971946635c538093614d719178d83597ced3803d0464dc8a7e5cf18e8e31b7a99761f50defb9a301&user_id=1765997";
             std::string url = ss.str();
             std::regex removeSpaces("[ ]");
             url = std::regex_replace(url, removeSpaces, "%20");
@@ -119,7 +120,10 @@ void MainWindow::on_sendPushButton_clicked()
                 }
             }
             dataStrings.push_back(resBuffer);
+            qDebug() << resBuffer.c_str();
         }
+
+
 
         if (!gelbooruDownloader(dataStrings, validFilePath.toStdString()))
         {
@@ -456,7 +460,6 @@ void MainWindow::on_sendPushButton_clicked()
     resetConsoleText();
 }
 
-
 void MainWindow::on_chooseServiceComboBox_currentIndexChanged(int index)
 {
     switch(index)
@@ -490,6 +493,12 @@ void MainWindow::on_chooseServiceComboBox_currentIndexChanged(int index)
         ui->pagesLineEdit->setText(globals::smtgbooruPageDefault);
         ui->numLineEdit->setText("(●ˇ∀ˇ●)");
         ui->setPathLineEdit->setText(globals::smtgbooruBasePath);
+        break;
+    }
+    case Services::Yandere: {
+        ui->pagesLineEdit->setText(globals::yanderePageDefault);
+        ui->numLineEdit->setText("(✿◡‿◡)");
+        ui->setPathLineEdit->setText(globals::yandereBasePath);
         break;
     }
     default: {
@@ -533,12 +542,14 @@ void MainWindow::acceptForm(ConfigForm* cfgFrm)
     globals::danbooruBasePath =             cfgFrm->danboouBasePath->text();
     globals::r34BasePath =                  cfgFrm->r34BasePath->text();
     globals::animePicturesBasePath =        cfgFrm->animePicturesBasePath->text();
+    globals::yandereBasePath =              cfgFrm->yandereBasePath->text();
     globals::smtgbooruBasePath =            cfgFrm->smtgbooruBasePath->text();
     globals::gelbooruPageDefault =          cfgFrm->gelbooruPageDefault->text();
     globals::danbooruPageDefault =          cfgFrm->danboorupageDefault->text();
     globals::danbooruNumDefault =           cfgFrm->danbooruNumDefault->text();
     globals::r34PageDefault =               cfgFrm->r34PageDefault->text();
     globals::animePicturesPageDefault =     cfgFrm->animePicturesPageDefault->text();
+    globals::yanderePageDefault =           cfgFrm->yanderePageDefault->text();
     globals::smtgbooruPageDefault =         cfgFrm->smtgbooruPageDefault->text();
     globals::danbooruUser =                 cfgFrm->danbooruUser->text().toStdString();
     globals::danbooruKey =                  cfgFrm->danbooruKey->text().toStdString();
@@ -571,6 +582,11 @@ void MainWindow::acceptForm(ConfigForm* cfgFrm)
     case Services::smtgbooru: {
         ui->pagesLineEdit->setText(globals::smtgbooruPageDefault);
         ui->setPathLineEdit->setText(globals::smtgbooruBasePath);
+        break;
+    }
+    case Services::Yandere: {
+        ui->pagesLineEdit->setText(globals::yanderePageDefault);
+        ui->setPathLineEdit->setText(globals::yandereBasePath);
         break;
     }
     default: {

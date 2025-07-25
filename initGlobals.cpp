@@ -122,11 +122,115 @@ bool initGlobals()
         return saveGlobals();
     }
 
+    if (!std::filesystem::exists(workablePath + "\\config.json"))
+    {
+        Warn("No json config file detected, using default configuration");
+
+        LPWSTR pPath = NULL;
+        HRESULT pHr = SHGetKnownFolderPath(FOLDERID_Pictures, 0, NULL, &pPath);
+
+        CoTaskMemFree(pPath);
+        std::string basePath = utf8_encode(pPath);
+
+        if (!SUCCEEDED(pHr))
+        {
+            Warn("Failed to locate Pictures folder");
+            return saveGlobals();
+        }
+
+        globals::gelbooruBasePath =      QString::fromStdString(basePath);
+        globals::danbooruBasePath =      QString::fromStdString(basePath);
+        globals::r34BasePath =           QString::fromStdString(basePath);
+        globals::animePicturesBasePath = QString::fromStdString(basePath);
+        globals::smtgbooruBasePath =     QString::fromStdString(basePath);
+
+        return saveGlobals();
+
+    }
+
+    std::string outSaner(workablePath + "\\config.json");
 
     std::ifstream in(workablePath + "\\config.scuff");
 
-    std::ifstream in2(workablePath+"\\config.json");
 
+    uint64_t fileSize = std::filesystem::file_size(workablePath+"\\config.json");
+    std::string content(fileSize, '\0');
+    std::ifstream jsonStream(workablePath + "\\config.json");
+
+    if (!jsonStream.is_open()) {
+        Warn("FFailed to open config file");
+        return false;
+    }
+
+    jsonStream.read(&content[0],fileSize);
+    qDebug() << content.c_str();
+
+    scuff::json configData = scuff::parseJson(content.c_str());
+    qDebug() << QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::yandereBasePathEnum]]);
+
+    // Root folders
+    globals::gelbooruBasePath =          QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::gelbooruBasePathEnum]]);
+    globals::danbooruBasePath =          QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::danbooruBasePathEnum]]);
+    globals::r34BasePath =               QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::r34BasePathEnum]]);
+    globals::animePicturesBasePath =     QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::animePicturesBasePathEnum]]);
+    globals::yandereBasePath =           QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::yandereBasePathEnum]]);
+    globals::smtgbooruBasePath =         QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::smtgbooruBasePathEnum]]);
+
+    // Default page count to fetch etc.
+    globals::gelbooruPageDefault =       QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::gelbooruPageDefaultEnum]]);
+    globals::danbooruPageDefault =       QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::danbooruPageDefaultEnum]]);
+    globals::danbooruNumDefault =        QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::danbooruNumDefaultEnum]]);
+    globals::r34PageDefault =            QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::r34PageDefaultEnum]]);
+    globals::animePicturesPageDefault =  QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::animePicturesPageDefaultEnum]]);
+    globals::yanderePageDefault =        QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::yanderePageDefaultEnum]]);
+    globals::smtgbooruPageDefault =      QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::smtgbooruPageDefaultEnum]]);
+
+
+    // IP addresses
+    globals::gelbooruIP =                static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruIPEnum]]);
+    globals::gelbooruIMG3IP =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruIMG3IPEnum]]);
+    globals::gelbooruVIDIP =             static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruVIDIPEnum]]);
+    globals::danbooruIP =                static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruIPEnum]]);
+    globals::danbooruCDNIP =             static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruCDNIPEnum]]);
+    globals::r34IP =                     static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::r34IPEnum]]);
+    globals::r34WIMGIP =                 static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::r34WIMGIPEnum]]);
+    globals::animePicturesIP =           static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::animePicturesIMGIPEnum]]);
+    globals::animePicturesIMGIP =        static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::animePicturesIMGIPEnum]]);
+    globals::smtgBooruIP =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::smtgBooruIPEnum]]);
+    globals::yandereIP =                 static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::yandereIPEnum]]);
+
+    // DNS
+    globals::gelbooruDNS =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruDNSEnum]]);
+    globals::gelbooruIMG3DNS =           static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruIMG3DNSEnum]]);
+    globals::gelbooruVIDDNS =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruVIDDNSEnum]]);
+    globals::danbooruDNS =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruDNSEnum]]);
+    globals::danbooruCDNDNS =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruCDNDNSEnum]]);
+    globals::r34DNS =                    static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::r34DNSEnum]]);
+    globals::r34WIMGDNS =                static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::r34WIMGDNSEnum]]);
+    globals::animePicturesDNS =          static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::animePicturesDNSEnum]]);
+    globals::animePicturesIMGDNS =       static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::animePicturesIMGDNSEnum]]);
+    globals::smtgBooruDNS =              static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::smtgBooruDNSEnum]]);
+    globals::yandereDNS =                static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::yandereDNSEnum]]);
+
+
+    // Tor schizophrenia (not added yet ig lol)
+
+    // General configuration
+    globals::sslCertificate = static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::sslCertificateEnum]]);
+    globals::torProxy= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::torProxyEnum]]);
+    globals::danbooruUser= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruUserEnum]]);
+    globals::danbooruKey= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruKeyEnum]]);
+    globals::curlUserAgent= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::curlUserAgentEnum]]);
+
+    globals::maxThreads = configData[globals::keyNameMap[globals::saveKeys::maxThreadsEnum]];
+    globals::defaultService = configData[globals::keyNameMap[globals::saveKeys::defaultServiceEnum]];
+
+    // globals::= QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::]]);
+    // globals::= QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::]]);
+
+
+
+    configData.erase(); // Always clean up after yourself!
 
     return true;
     if (!in.is_open())

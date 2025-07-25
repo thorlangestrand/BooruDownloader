@@ -18,49 +18,56 @@ namespace globals
 {
 
     enum saveKeys {
-        gelbooruBasePathEnum            =       0,
-        danbooruBasePathEnum            =       1,
-        r34BasePathEnum                 =       2,
-        animePicturesBasePathEnum       =       3,
-        yandereBasePathEnum             =       4,
-        smtgbooruBasePathEnum           =       5,
-        gelbooruPageDefaultEnum         =       6,
-        danbooruPageDefaultEnum         =       7,
-        danbooruNumDefaultEnum          =       8,
-        r34PageDefaultEnum              =       9,
-        animePicturesPageDefaultEnum    =       10,
-        smtgbooruPageDefaultEnum        =       11,
-        gelbooruIPEnum                  =       12,
-        gelbooruIMG3IPEnum              =       13,
-        gelbooruVIDIPEnum               =       14,
-        danbooruIPEnum                  =       15,
-        danbooruCDNIPEnum               =       16,
-        r34IPEnum                       =       17,
-        r34WIMGIPEnum                   =       18,
-        animePicturesIPEnum             =       19,
-        animePicturesIMGIPEnum          =       20,
-        smtgBooruIPEnum                 =       21,
-        gelbooruDNSEnum                 =       22,
-        gelbooruIMG3DNSEnum             =       23,
-        gelbooruVIDDNSEnum              =       24,
-        danbooruDNSEnum                 =       25,
-        danbooruCDNDNSEnum              =       26,
-        r34DNSEnum                      =       27,
-        r34WIMGDNSEnum                  =       28,
-        animePicturesDNSEnum            =       29,
-        animePicturesIMGDNSEnum         =       30,
-        smtgBooruDNSEnum                =       31,
-        yandereDNSEnum                  =       32,
-        sslCertificateEnum              =       33,
-        torProxyEnum                    =       34,
-        danbooruUserEnum                =       35,
-        danbooruKeyEnum                 =       36,
-        curlUserAgentEnum               =       37,
-        defaultServiceEnum              =       38
+        gelbooruBasePathEnum,
+        danbooruBasePathEnum,
+        r34BasePathEnum,
+        animePicturesBasePathEnum,
+        yandereBasePathEnum,
+        smtgbooruBasePathEnum,
+
+        gelbooruPageDefaultEnum,
+        danbooruPageDefaultEnum,
+        danbooruNumDefaultEnum,
+        r34PageDefaultEnum,
+        animePicturesPageDefaultEnum,
+        yanderePageDefaultEnum,
+        smtgbooruPageDefaultEnum,
+
+        gelbooruIPEnum,
+        gelbooruIMG3IPEnum,
+        gelbooruVIDIPEnum,
+        danbooruIPEnum,
+        danbooruCDNIPEnum,
+        r34IPEnum,
+        r34WIMGIPEnum,
+        animePicturesIPEnum,
+        animePicturesIMGIPEnum,
+        smtgBooruIPEnum,
+        yandereIPEnum,
+
+        gelbooruDNSEnum,
+        gelbooruIMG3DNSEnum,
+        gelbooruVIDDNSEnum,
+        danbooruDNSEnum,
+        danbooruCDNDNSEnum,
+        r34DNSEnum,
+        r34WIMGDNSEnum,
+        animePicturesDNSEnum,
+        animePicturesIMGDNSEnum,
+        smtgBooruDNSEnum,
+        yandereDNSEnum,
+
+        sslCertificateEnum,
+        torProxyEnum,
+        danbooruUserEnum,
+        danbooruKeyEnum,
+        curlUserAgentEnum,
+        maxThreadsEnum,
+        defaultServiceEnum
     };
 
     // Yes this is completely schizophrenic, I am well aware
-    inline std::map<saveKeys,std::string> keyNameMap ({
+    inline std::map<saveKeys, const char*> keyNameMap ({
 
         {gelbooruBasePathEnum,          "gelbooruBasePath"},
         {danbooruBasePathEnum,          "danbooruBasePath"},
@@ -68,12 +75,15 @@ namespace globals
         {animePicturesBasePathEnum,     "animePicturesBasePath"},
         {yandereBasePathEnum,           "yandereBasePath"},
         {smtgbooruBasePathEnum,         "smtgbooruBasePath"},
+
         {gelbooruPageDefaultEnum,       "gelbooruPageDefault"},
         {danbooruPageDefaultEnum,       "danbooruPageDefault"},
         {danbooruNumDefaultEnum,        "danbooruNumDefault"},
         {r34PageDefaultEnum,            "r34PageDefault"},
         {animePicturesPageDefaultEnum,  "animePicturesPageDefault"},
         {smtgbooruPageDefaultEnum,      "smtgbooruPageDefault"},
+        {yanderePageDefaultEnum,        "yanderePageDefault"},
+
         {gelbooruIPEnum,                "gelbooruIP"},
         {gelbooruIMG3IPEnum,            "gelbooruIMG3IP"},
         {gelbooruVIDIPEnum,             "gelbooruVIDIP"},
@@ -84,6 +94,8 @@ namespace globals
         {animePicturesIPEnum,           "animePicturesIP"},
         {animePicturesIMGIPEnum,        "animePicturesIMGIP"},
         {smtgBooruIPEnum,               "smtgBooruIP"},
+        {yandereIPEnum,                 "yandereIP"},
+
         {gelbooruDNSEnum,               "gelbooruDNS"},
         {gelbooruIMG3DNSEnum,           "gelbooruIMG3DNS"},
         {gelbooruVIDDNSEnum,            "gelbooruVIDDNS"},
@@ -95,13 +107,14 @@ namespace globals
         {animePicturesIMGDNSEnum,       "animePicturesIMGDNS"},
         {smtgBooruDNSEnum,              "smtgBooruDNS"},
         {yandereDNSEnum,                "yandereDNS"},
-        {sslCertificateEnum              ,"sslCertificate"},
-        {torProxyEnum                    ,"torProxy"},
-        {danbooruUserEnum                ,"danbooruUser"},
-        {danbooruKeyEnum                 ,"danbooruKey"},
-        {curlUserAgentEnum               ,"curlUserAgent"},
-        {defaultServiceEnum,"defaultServiceEnum"},
 
+        {sslCertificateEnum,            "sslCertificate"},
+        {torProxyEnum,                  "torProxy"},
+        {danbooruUserEnum,              "danbooruUser"},
+        {danbooruKeyEnum,               "danbooruKey"},
+        {curlUserAgentEnum,             "curlUserAgent"},
+        {maxThreadsEnum,                "maxThreads"},
+        {defaultServiceEnum,            "defaultService"}
     });
 
 
@@ -121,6 +134,7 @@ namespace globals
     inline QString r34PageDefault =             "2";      // Default amount of pages to download for R34
     inline QString animePicturesPageDefault =   "2";      // Default amount of pages to download for anime-pictures
     inline QString smtgbooruPageDefault =       "2";      // Default amount of pages to download for smtgbooru
+    inline QString yanderePageDefault =         "2";      // Default amount of pages to download for yande.re
 
     inline std::string gelbooruIP =             "67.202.114.141";       // Site IPs, used for tor lookups
     inline std::string gelbooruIMG3IP =         "104.21.234.5";
@@ -136,6 +150,8 @@ namespace globals
     inline std::string animePicturesIMGIP =     "172.67.160.246";
 
     inline std::string smtgBooruIP =            "3.130.86.89";
+
+    inline std::string yandereIP =              "198.251.89.183";
 
 
     inline std::string gelbooruDNS =            "gelbooru.com:443:67.202.114.141";                  // Dns resolution chains
@@ -168,6 +184,7 @@ namespace globals
                                                     // 2 - R34
                                                     // 3 - Anime-Pictures
                                                     // 4 - smtgbooru
+                                                    // 5 - Yandere
 
     inline int maxThreads =                     12; // Maximum allowed amount of threads allowed at once
 
