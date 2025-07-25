@@ -238,6 +238,7 @@ void ConfigForm::acceptForm(networkConfigForm* netConfigForm)
     globals::useR34Tor =            netConfigForm->useR34Tor->checkState();
     globals::useAnimePicturesTor =  netConfigForm->useAnimePicturesTor->checkState();
     globals::useSmtgBooruTor =      netConfigForm->useSmtgBooruTor->checkState();
+    globals::useYandereTor =        netConfigForm->useYandereTor->checkState();
     globals::useAllTor =            netConfigForm->useAllTor->checkState();
 
     if (!saveGlobals())

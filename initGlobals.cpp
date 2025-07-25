@@ -215,6 +215,15 @@ bool initGlobals()
 
     // Tor schizophrenia (not added yet ig lol)
 
+    globals::useGelbooruTor = static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useGelbooruTorEnum]]));
+    globals::useDanbooruTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useDanbooruTorEnum]]));
+    globals::useR34Tor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useR34TorEnum]]));
+    globals::useAnimePicturesTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useAnimePicturesTorEnum]]));
+    globals::useSmtgBooruTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useSmtgBooruTorEnum]]));
+    globals::useYandereTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useYandereTorEnum]]));
+    globals::useAllTor= static_cast<Qt::CheckState>(static_cast<int>(configData[globals::keyNameMap[globals::saveKeys::useAllTorEnum]]));
+
+
     // General configuration
     globals::sslCertificate =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::sslCertificateEnum]]);
     globals::torProxy =                  static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::torProxyEnum]]);

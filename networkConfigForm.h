@@ -64,6 +64,7 @@ public:
     QLabel* useR34TorLabel =                nullptr;
     QLabel* useAnimePicturesTorLabel =      nullptr;
     QLabel* useSmtgBooruTorLabel =          nullptr;
+    QLabel* useYandereTorLabel =            nullptr;
     QLabel* useAllTorLabel =                nullptr;
 
 
@@ -100,6 +101,7 @@ public:
     QCheckBox* useR34Tor =                  nullptr;
     QCheckBox* useAnimePicturesTor =        nullptr;
     QCheckBox* useSmtgBooruTor =            nullptr;
+    QCheckBox* useYandereTor =              nullptr;
     QCheckBox* useAllTor =                  nullptr;
 
     // Accept/reject

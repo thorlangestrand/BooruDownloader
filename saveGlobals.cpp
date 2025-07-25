@@ -75,7 +75,13 @@ bool saveGlobals()
     root.addPureData(globals::keyNameMap[globals::saveKeys::yandereDNSEnum], globals::yandereDNS.c_str());
 
     // Tor schizophrenia configuration (maybe worry about it a little)
-
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useGelbooruTorEnum], globals::useGelbooruTor);
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useDanbooruTorEnum], globals::useDanbooruTor);
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useR34TorEnum], globals::useR34Tor);
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useAnimePicturesTorEnum], globals::useAnimePicturesTor);
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useSmtgBooruTorEnum], globals::useSmtgBooruTor);
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useYandereTorEnum], globals::useYandereTor);
+    root.addPureData(globals::keyNameMap[globals::saveKeys::useAllTorEnum], globals::useAllTor);
 
     // General configuration for networking, keys, etc.
     root.addPureData(globals::keyNameMap[globals::saveKeys::sslCertificateEnum], globals::sslCertificate.c_str());

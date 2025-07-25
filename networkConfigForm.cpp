@@ -38,7 +38,8 @@ networkConfigForm::networkConfigForm(ConfigForm* parent)
     useDanbooruTorLabel =               new QLabel("Danbooru");
     useR34TorLabel =                    new QLabel("R34");
     useAnimePicturesTorLabel =          new QLabel("Anime-Pictures");
-    useSmtgBooruTorLabel =              new QLabel("SmtgBooru");
+    useSmtgBooruTorLabel =              new QLabel("Smtgbooru");
+    useYandereTorLabel =                new QLabel("Yandere");
     useAllTorLabel =                    new QLabel("All");
 
 
@@ -81,6 +82,7 @@ networkConfigForm::networkConfigForm(ConfigForm* parent)
     useR34Tor =                         new QCheckBox(); useR34Tor->setCheckState(globals::useR34Tor);
     useAnimePicturesTor =               new QCheckBox(); useAnimePicturesTor->setCheckState(globals::useAnimePicturesTor);
     useSmtgBooruTor =                   new QCheckBox(); useSmtgBooruTor->setCheckState(globals::useSmtgBooruTor);
+    useYandereTor =                     new QCheckBox(); useYandereTor->setCheckState(globals::useYandereTor);
     useAllTor =                         new QCheckBox(); useAllTor->setCheckState(globals::useAllTor);
 
 
@@ -137,12 +139,13 @@ networkConfigForm::networkConfigForm(ConfigForm* parent)
     mainLayout->addWidget(useR34TorLabel,           26, 0); mainLayout->addWidget(useR34Tor,            26, 1);
     mainLayout->addWidget(useAnimePicturesTorLabel, 27, 0); mainLayout->addWidget(useAnimePicturesTor,  27, 1);
     mainLayout->addWidget(useSmtgBooruTorLabel,     28, 0); mainLayout->addWidget(useSmtgBooruTor,      28, 1);
-    mainLayout->addWidget(useAllTorLabel,           29, 0); mainLayout->addWidget(useAllTor,            29, 1);
+    mainLayout->addWidget(useYandereTorLabel,       29, 0); mainLayout->addWidget(useYandereTor,        29, 1);
+    mainLayout->addWidget(useAllTorLabel,           30, 0); mainLayout->addWidget(useAllTor,            30, 1);
 
 
 
 
-    mainLayout->addWidget(buttonBox, 30, 0, 1, 2);
+    mainLayout->addWidget(buttonBox, 31, 0, 1, 2);
 
     networkConfigForm::setLayout(mainLayout);
     networkConfigForm::setWindowTitle("Configure Network Settings");
@@ -182,6 +185,7 @@ networkConfigForm::~networkConfigForm()
     delete useR34TorLabel;
     delete useAnimePicturesTorLabel;
     delete useSmtgBooruTorLabel;
+    delete useYandereTorLabel;
     delete useAllTorLabel;
 
     delete gelbooruIP;
@@ -212,6 +216,7 @@ networkConfigForm::~networkConfigForm()
     delete useR34Tor;
     delete useAnimePicturesTor;
     delete useSmtgBooruTor;
+    delete useYandereTor;
     delete useAllTor;
 
     delete buttonBox;

@@ -57,6 +57,14 @@ namespace globals
         smtgBooruDNSEnum,
         yandereDNSEnum,
 
+        useGelbooruTorEnum,
+        useDanbooruTorEnum,
+        useR34TorEnum,
+        useAnimePicturesTorEnum,
+        useSmtgBooruTorEnum,
+        useYandereTorEnum,
+        useAllTorEnum,
+
         sslCertificateEnum,
         torProxyEnum,
         gelbooruUserIdEnum,
@@ -109,6 +117,14 @@ namespace globals
         {animePicturesIMGDNSEnum,       "animePicturesIMGDNS"},
         {smtgBooruDNSEnum,              "smtgBooruDNS"},
         {yandereDNSEnum,                "yandereDNS"},
+
+        {useGelbooruTorEnum,            "useGelbooruTor"},
+        {useDanbooruTorEnum,            "useDanbooruTor"},
+        {useR34TorEnum,                 "useR34Tor"},
+        {useAnimePicturesTorEnum,       "useAnimePicturesTor"},
+        {useSmtgBooruTorEnum,           "useSmtgBooruTor"},
+        {useYandereTorEnum,             "useYandereTor"},
+        {useAllTorEnum,                 "useAllTor"},
 
         {sslCertificateEnum,            "sslCertificate"},
         {torProxyEnum,                  "torProxy"},
