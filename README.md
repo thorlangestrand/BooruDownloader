@@ -4,8 +4,11 @@
 ## NOTE
 This readme is horribly outdated, probably by a couple years at this point
 
-Main functionality remains identical, just some more bells and whistles to make things such as saving/loading data better, more platforms (and fewer in some cases, RIP smtgbooru) some other stuff
-Just read through the code, it's not very complicated
+Main functionality remains identical, just some more bells and whistles to make things such as saving/loading data better, more platforms (and fewer in some cases, RIP smtgbooru) etc.
+
+Just read through the code, it's really quite simple
+
+Glad I could help
 
 ## Features
 
