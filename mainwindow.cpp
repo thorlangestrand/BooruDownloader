@@ -14,8 +14,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->chooseServiceComboBox->addItem("smtgbooru");
     ui->chooseServiceComboBox->addItem("Yandere");
     ui->chooseServiceComboBox->setCurrentIndex(globals::defaultService);
+
+    // Close probram on CTRL+SHIFT+W
     QShortcut* exitCtrShiftlW = new QShortcut(QKeySequence("Ctrl+Shift+W"), this);
     QObject::connect(exitCtrShiftlW, &QShortcut::activated, this, [](){ exit(0); });
+
+    // Open config window on CTRL+E
+    QShortcut* configCtrlE = new QShortcut(QKeySequence("Ctrl+E"), this);
+    QObject::connect(configCtrlE, &QShortcut::activated, this, [this](){
+        MainWindow::on_CFG_button_clicked();
+    });
 }
 
 MainWindow::~MainWindow()
@@ -86,7 +94,7 @@ void MainWindow::on_sendPushButton_clicked()
             }
 
             std::stringstream ss;
-            ss << "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=" << sanitizedTags.toStdString() << "&pid=" << i<<"&api_key=9d21663909e8c67fe349f284ca8556210817bcbb53402869971946635c538093614d719178d83597ced3803d0464dc8a7e5cf18e8e31b7a99761f50defb9a301&user_id=1765997";
+            ss << "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=" << sanitizedTags.toStdString() << "&pid=" << i << "&api_key=" << globals::gelbooruKey << "&user_id=" << globals::gelbooruUserId;
             std::string url = ss.str();
             std::regex removeSpaces("[ ]");
             url = std::regex_replace(url, removeSpaces, "%20");
@@ -120,7 +128,10 @@ void MainWindow::on_sendPushButton_clicked()
                 }
             }
             dataStrings.push_back(resBuffer);
-            qDebug() << resBuffer.c_str();
+            if (resBuffer == "") {
+                Warn("No data received from Gelbooru, check your api key and user id");
+                return;
+            }
         }
 
 
@@ -190,6 +201,11 @@ void MainWindow::on_sendPushButton_clicked()
             }
 
             dataStrings.push_back(resBuffer);
+            if (resBuffer == "") {
+                Warn("No data received from Danbooru, check your api key and user id");
+                return;
+            }
+
         }
 
         if (!danbooruDownloader(dataStrings, validFilePath.toStdString()))
@@ -251,7 +267,12 @@ void MainWindow::on_sendPushButton_clicked()
                     return;
                 }
             }
+
             dataStrings.push_back(resBuffer);
+            if (resBuffer == "") {
+                Warn("No data received from R34, check your connection or something idk this shouldn't happen");
+                return;
+            }
 
         }
 
@@ -443,6 +464,11 @@ void MainWindow::on_sendPushButton_clicked()
 
             dataStrings.push_back(resBuffer);
 
+            if (resBuffer == "") {
+                Warn("No data received from Yandere, check your connection or something idk this shouldn't happen");
+                return;
+            }
+
         }
 
         if (!yandereDownloader(dataStrings, validFilePath.toStdString()))
@@ -551,6 +577,8 @@ void MainWindow::acceptForm(ConfigForm* cfgFrm)
     globals::animePicturesPageDefault =     cfgFrm->animePicturesPageDefault->text();
     globals::yanderePageDefault =           cfgFrm->yanderePageDefault->text();
     globals::smtgbooruPageDefault =         cfgFrm->smtgbooruPageDefault->text();
+    globals::gelbooruUserId =                 cfgFrm->gelbooruUser->text().toStdString();
+    globals::gelbooruKey =                  cfgFrm->gelbooruKey->text().toStdString();
     globals::danbooruUser =                 cfgFrm->danbooruUser->text().toStdString();
     globals::danbooruKey =                  cfgFrm->danbooruKey->text().toStdString();
     globals::maxThreads =                   cfgFrm->maxThreads->text().toInt();

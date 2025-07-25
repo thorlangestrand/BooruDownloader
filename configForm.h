@@ -39,6 +39,8 @@ public:
     QLabel* animePicturesPageDefaultLabel =         nullptr;
     QLabel* yanderePageDefaultLabel =               nullptr;
     QLabel* smtgbooruPageDefaultLabel =             nullptr;
+    QLabel* gelbooruUserLabel =                     nullptr;
+    QLabel* gelbooruKeyLabel =                      nullptr;
     QLabel* danbooruKeyLabel =                      nullptr;
     QLabel* danbooruUserLabel =                     nullptr;
     QLabel* maxThreadsLabel =                       nullptr;
@@ -59,6 +61,8 @@ public:
     QLineEdit* yanderePageDefault =                 nullptr;
     QLineEdit* smtgbooruPageDefault =               nullptr;
     QPushButton* networkConfig =                    nullptr;
+    QLineEdit* gelbooruUser =                       nullptr;
+    QLineEdit* gelbooruKey =                        nullptr;
     QLineEdit* danbooruKey =                        nullptr;
     QLineEdit* danbooruUser =                       nullptr;
     QLineEdit* maxThreads =                         nullptr;

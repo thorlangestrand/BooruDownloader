@@ -44,8 +44,10 @@ ConfigForm::ConfigForm(MainWindow* parent)
     animePicturesPageDefaultLabel =     new QLabel("Anime-Pictures page default");
     yanderePageDefaultLabel =           new QLabel("Yandere page default");
     smtgbooruPageDefaultLabel =         new QLabel("smtgbooru page default");
-    danbooruUserLabel =                 new QLabel("Danbooru User");
-    danbooruKeyLabel =                  new QLabel("Danbooru Key");
+    gelbooruUserLabel =                 new QLabel("Gelboru user id");
+    gelbooruKeyLabel =                  new QLabel("Gelbooru key");
+    danbooruUserLabel =                 new QLabel("Danbooru user");
+    danbooruKeyLabel =                  new QLabel("Danbooru key");
     maxThreadsLabel =                   new QLabel("Maximum amount of threads");
     defaultServiceLabel =               new QLabel("Default service on startup");
 
@@ -63,6 +65,8 @@ ConfigForm::ConfigForm(MainWindow* parent)
     animePicturesPageDefault =          new QLineEdit(globals::animePicturesPageDefault);
     yanderePageDefault =                new QLineEdit(globals::yanderePageDefault);
     smtgbooruPageDefault =              new QLineEdit(globals::smtgbooruPageDefault);
+    gelbooruUser =                      new QLineEdit(globals::gelbooruUserId.c_str());
+    gelbooruKey =                       new QLineEdit(globals::gelbooruKey.c_str());
     danbooruUser =                      new QLineEdit(globals::danbooruUser.c_str());
     danbooruKey =                       new QLineEdit(globals::danbooruKey.c_str());
     maxThreads =                        new QLineEdit(QString::number(globals::maxThreads));
@@ -100,12 +104,14 @@ ConfigForm::ConfigForm(MainWindow* parent)
     mainLayout->addWidget(animePicturesPageDefaultLabel,    10, 0); mainLayout->addWidget(animePicturesPageDefault,     10, 1);
     mainLayout->addWidget(yanderePageDefaultLabel,          11, 0); mainLayout->addWidget(yanderePageDefault,           11, 1);
     mainLayout->addWidget(smtgbooruPageDefaultLabel,        12, 0); mainLayout->addWidget(smtgbooruPageDefault,         12, 1);
-    mainLayout->addWidget(danbooruUserLabel,                13, 0); mainLayout->addWidget(danbooruUser,                 13, 1);
-    mainLayout->addWidget(danbooruKeyLabel,                 14, 0); mainLayout->addWidget(danbooruKey,                  14, 1);
-    mainLayout->addWidget(maxThreadsLabel,                  15, 0); mainLayout->addWidget(maxThreads,                   15, 1);
-    mainLayout->addWidget(defaultServiceLabel,              16, 0); mainLayout->addWidget(defaultService,               16, 1);
-    mainLayout->addWidget(networkConfig,                    17, 1);
-    mainLayout->addWidget(buttonBox, 18, 0, 1, 2);
+    mainLayout->addWidget(gelbooruUserLabel,                13, 0); mainLayout->addWidget(gelbooruUser,                 13, 1);
+    mainLayout->addWidget(gelbooruKeyLabel,                 14, 0); mainLayout->addWidget(gelbooruKey,                  14, 1);
+    mainLayout->addWidget(danbooruUserLabel,                15, 0); mainLayout->addWidget(danbooruUser,                 15, 1);
+    mainLayout->addWidget(danbooruKeyLabel,                 16, 0); mainLayout->addWidget(danbooruKey,                  16, 1);
+    mainLayout->addWidget(maxThreadsLabel,                  17, 0); mainLayout->addWidget(maxThreads,                   17, 1);
+    mainLayout->addWidget(defaultServiceLabel,              18, 0); mainLayout->addWidget(defaultService,               18, 1);
+    mainLayout->addWidget(networkConfig,                    19, 1);
+    mainLayout->addWidget(buttonBox, 20, 0, 1, 2);
 
     ConfigForm::setLayout(mainLayout);
     ConfigForm::setWindowTitle("Configure Settings");
@@ -127,6 +133,8 @@ ConfigForm::~ConfigForm()
     delete animePicturesPageDefaultLabel;
     delete yanderePageDefaultLabel;
     delete smtgbooruPageDefaultLabel;
+    delete gelbooruUserLabel;
+    delete gelbooruKeyLabel;
     delete danbooruUserLabel;
     delete danbooruKeyLabel;
     delete maxThreadsLabel;
@@ -147,6 +155,8 @@ ConfigForm::~ConfigForm()
     delete yanderePageDefault;
     delete smtgbooruPageDefault;
     delete networkConfig;
+    delete gelbooruUser;
+    delete gelbooruKey;
     delete danbooruUser;
     delete danbooruKey;
     delete maxThreads;

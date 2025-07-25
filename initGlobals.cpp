@@ -158,7 +158,7 @@ bool initGlobals()
     std::ifstream jsonStream(workablePath + "\\config.json");
 
     if (!jsonStream.is_open()) {
-        Warn("FFailed to open config file");
+        Warn("Failed to open config file");
         return false;
     }
 
@@ -216,14 +216,16 @@ bool initGlobals()
     // Tor schizophrenia (not added yet ig lol)
 
     // General configuration
-    globals::sslCertificate = static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::sslCertificateEnum]]);
-    globals::torProxy= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::torProxyEnum]]);
-    globals::danbooruUser= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruUserEnum]]);
-    globals::danbooruKey= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruKeyEnum]]);
-    globals::curlUserAgent= static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::curlUserAgentEnum]]);
+    globals::sslCertificate =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::sslCertificateEnum]]);
+    globals::torProxy =                  static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::torProxyEnum]]);
+    globals::gelbooruUserId =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruUserIdEnum]]);
+    globals::gelbooruKey =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruKeyEnum]]);
+    globals::danbooruUser =              static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruUserEnum]]);
+    globals::danbooruKey =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruKeyEnum]]);
+    globals::curlUserAgent =             static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::curlUserAgentEnum]]);
 
-    globals::maxThreads = configData[globals::keyNameMap[globals::saveKeys::maxThreadsEnum]];
-    globals::defaultService = configData[globals::keyNameMap[globals::saveKeys::defaultServiceEnum]];
+    globals::maxThreads =                configData[globals::keyNameMap[globals::saveKeys::maxThreadsEnum]];
+    globals::defaultService =            configData[globals::keyNameMap[globals::saveKeys::defaultServiceEnum]];
 
     // globals::= QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::]]);
     // globals::= QString::fromStdString(configData[globals::keyNameMap[globals::saveKeys::]]);

@@ -80,6 +80,8 @@ bool saveGlobals()
     // General configuration for networking, keys, etc.
     root.addPureData(globals::keyNameMap[globals::saveKeys::sslCertificateEnum], globals::sslCertificate.c_str());
     root.addPureData(globals::keyNameMap[globals::saveKeys::torProxyEnum], globals::torProxy.c_str());
+    root.addPureData(globals::keyNameMap[globals::saveKeys::gelbooruUserIdEnum], globals::gelbooruUserId.c_str());
+    root.addPureData(globals::keyNameMap[globals::saveKeys::gelbooruKeyEnum], globals::gelbooruKey.c_str());
     root.addPureData(globals::keyNameMap[globals::saveKeys::danbooruUserEnum], globals::danbooruUser.c_str());
     root.addPureData(globals::keyNameMap[globals::saveKeys::danbooruKeyEnum], globals::danbooruKey.c_str());
     root.addPureData(globals::keyNameMap[globals::saveKeys::curlUserAgentEnum], globals::curlUserAgent.c_str());
