@@ -69,6 +69,8 @@ namespace globals
         torProxyEnum,
         gelbooruUserIdEnum,
         gelbooruKeyEnum,
+        r34KeyEnum,
+        r34UserIdEnum,
         danbooruUserEnum,
         danbooruKeyEnum,
         curlUserAgentEnum,
@@ -130,6 +132,8 @@ namespace globals
         {torProxyEnum,                  "torProxy"},
         {gelbooruUserIdEnum,            "gelbooruUserId"},
         {gelbooruKeyEnum,               "gelbooruKey"},
+        {r34KeyEnum,                    "r34Key"},
+        {r34UserIdEnum,                 "r34UserId"},
         {danbooruUserEnum,              "danbooruUser"},
         {danbooruKeyEnum,               "danbooruKey"},
         {curlUserAgentEnum,             "curlUserAgent"},
@@ -196,6 +200,8 @@ namespace globals
     inline std::string torProxy =               "socks5://localhost:9150";      // SOCKS5 proxy
     inline std::string gelbooruUserId =         "";                             // User Id used for gelbooru
     inline std::string gelbooruKey =            "";                             // API key used for gelbooru
+    inline std::string r34Key =                 "";                             // Api key used for r34
+    inline std::string r34UserId =                "";                           // User id used for r34
     inline std::string danbooruUser =           "";                             // User used for danbooru
     inline std::string danbooruKey =            "";                             // API key used for danbooru
     inline std::string curlUserAgent =          "ScuffDownloader/1.0";          // User agent used for curl

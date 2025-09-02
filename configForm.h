@@ -41,6 +41,8 @@ public:
     QLabel* smtgbooruPageDefaultLabel =             nullptr;
     QLabel* gelbooruUserLabel =                     nullptr;
     QLabel* gelbooruKeyLabel =                      nullptr;
+    QLabel* r34UserIdLabel =                        nullptr;
+    QLabel* r34KeyLabel =                           nullptr;
     QLabel* danbooruKeyLabel =                      nullptr;
     QLabel* danbooruUserLabel =                     nullptr;
     QLabel* maxThreadsLabel =                       nullptr;
@@ -63,6 +65,8 @@ public:
     QPushButton* networkConfig =                    nullptr;
     QLineEdit* gelbooruUser =                       nullptr;
     QLineEdit* gelbooruKey =                        nullptr;
+    QLineEdit* r34UserId =                          nullptr;
+    QLineEdit* r34Key =                             nullptr;
     QLineEdit* danbooruKey =                        nullptr;
     QLineEdit* danbooruUser =                       nullptr;
     QLineEdit* maxThreads =                         nullptr;

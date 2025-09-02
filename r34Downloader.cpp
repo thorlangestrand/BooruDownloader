@@ -57,6 +57,7 @@ struct imageDataR {
 
 bool r34Downloader(std::vector<std::string> dataStrings, const std::string& basePath)
 {
+    // qDebug() << dataStrings[0].c_str() << "\n";
     // Collecting all the image data in one place so it can be bulk downloaded smoothly
     std::vector<imageDataR> images = {};
 

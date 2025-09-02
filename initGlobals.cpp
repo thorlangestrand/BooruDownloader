@@ -203,6 +203,8 @@ bool initGlobals()
     globals::torProxy =                  static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::torProxyEnum]]);
     globals::gelbooruUserId =            static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruUserIdEnum]]);
     globals::gelbooruKey =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::gelbooruKeyEnum]]);
+    globals::r34Key =                    static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::r34KeyEnum]]);
+    globals::r34UserId =                   static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::r34UserIdEnum]]);
     globals::danbooruUser =              static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruUserEnum]]);
     globals::danbooruKey =               static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::danbooruKeyEnum]]);
     globals::curlUserAgent =             static_cast<std::string>(configData[globals::keyNameMap[globals::saveKeys::curlUserAgentEnum]]);

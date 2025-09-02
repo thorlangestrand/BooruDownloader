@@ -233,7 +233,7 @@ void MainWindow::on_sendPushButton_clicked()
             }
 
             std::stringstream ss;
-            ss << "https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags=" << sanitizedTags.toStdString() << "&pid=" << i;
+            ss << "https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags=" << sanitizedTags.toStdString() << "&pid=" << i << "&api_key=" << globals::r34Key << "&user_id=" << globals::r34UserId;
             std::string url = ss.str();
             std::regex removeSpaces("[ ]");
             url = std::regex_replace(url, std::regex("[ ]"), "%20");
@@ -577,8 +577,10 @@ void MainWindow::acceptForm(ConfigForm* cfgFrm)
     globals::animePicturesPageDefault =     cfgFrm->animePicturesPageDefault->text();
     globals::yanderePageDefault =           cfgFrm->yanderePageDefault->text();
     globals::smtgbooruPageDefault =         cfgFrm->smtgbooruPageDefault->text();
-    globals::gelbooruUserId =                 cfgFrm->gelbooruUser->text().toStdString();
+    globals::gelbooruUserId =               cfgFrm->gelbooruUser->text().toStdString();
     globals::gelbooruKey =                  cfgFrm->gelbooruKey->text().toStdString();
+    globals::r34UserId =                    cfgFrm->r34UserId->text().toStdString();
+    globals::r34Key =                       cfgFrm->r34Key->text().toStdString();
     globals::danbooruUser =                 cfgFrm->danbooruUser->text().toStdString();
     globals::danbooruKey =                  cfgFrm->danbooruKey->text().toStdString();
     globals::maxThreads =                   cfgFrm->maxThreads->text().toInt();
