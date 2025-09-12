@@ -146,7 +146,11 @@ void json::addPureData(const char *name, const char *data)
 }
 void json::addPureData(int name, const char *data)
 {
-    const char *_name = std::string(std::to_string(name)).c_str();
+    // Fix this by moving it to 2 operations
+    // Bah
+    std::string tmpS = std::to_string(name);
+    const char *_name = tmpS.c_str();
+    // const char *_name = std::string(std::to_string(name)).c_str();
     children[_name] = new json(_name, data, true);
     // nChildren++;
 }
@@ -158,7 +162,10 @@ void json::addPureData(const char *name, int data)
 }
 void json::addPureData(int name, int data)
 {
-    const char *_name = std::string(std::to_string(name)).c_str();
+    std::string tmpS = std::to_string(name);
+    const char *_name = tmpS.c_str();
+
+    //const char *_name = std::string(std::to_string(name)).c_str();
     children[_name] = new json(_name, std::string(std::to_string(data)), false);
     // nChildren++;
 }
@@ -170,7 +177,10 @@ void json::addPureData(const char *name, bool data)
 }
 void json::addPureData(int name, bool data)
 {
-    const char *_name = std::string(std::to_string(name)).c_str();
+    std::string tmpS = std::to_string(name);
+    const char *_name = tmpS.c_str();
+
+    // const char *_name = std::string(std::to_string(name)).c_str();
     children[_name] = new json(_name, std::string(std::to_string(data)), false);
     // nChildren++;
 }
