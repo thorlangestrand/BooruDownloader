@@ -58,24 +58,34 @@ struct imageDataD {
 bool danbooruDownloader(std::vector<std::string> dataStrings, std::string basePath)
 {
 
-
     // Collecting all the image data in one place so it can be bulk downloaded smoothly
     std::vector<imageDataD> images = {};
 
     for (size_t i = 0; i < dataStrings.size(); ++i)
     {
-        scuff::json res = scuff::parseJson(dataStrings[i].c_str());
 
+        scuff::json res = scuff::parseJson(dataStrings[i].c_str());
         int rsNchildren = res.nChildren;
 
         for (int j = 0; j < rsNchildren; ++j)
         {
+
             scuff::json thisPost = res[j];
+
+            // Banned posts are different from deleted posts
+            // Deleted posts can still be accessed through the api, banned posts are gone gone
+            // Meaning if one of the posts are banned, there is no file_url or large_file_url, crashing things pretty badly
+            // Surprised I hadn't ran into this previously
+            // Fix is simple, if banned move on to next loop. Guess I should pop a warning too
+            if (thisPost["is_banned"]) {
+                QString wMsg = "Post with id " + QString::fromStdString(thisPost["id"]) + " is banned.";
+                Warn(wMsg);
+                continue;
+            }
+
             images.push_back({static_cast<int>(i), static_cast<int>(j), thisPost["id"], thisPost["file_url"], thisPost["large_file_url"]});
         }
-
         res.erase();
-
     }
 
     if (!std::filesystem::exists(basePath))
@@ -88,7 +98,6 @@ bool danbooruDownloader(std::vector<std::string> dataStrings, std::string basePa
             return false;
         }
     }
-
 
     scuff::Semaphore maxJobs(globals::maxThreads);
     std::vector<std::future<bool>> imgDownloadFutures = {};
