@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->chooseServiceComboBox->addItem("Yandere");
     ui->chooseServiceComboBox->setCurrentIndex(globals::defaultService);
 
-    // Close probram on CTRL+SHIFT+W
+    // Close program on CTRL+SHIFT+W
     QShortcut* exitCtrShiftlW = new QShortcut(QKeySequence("Ctrl+Shift+W"), this);
     QObject::connect(exitCtrShiftlW, &QShortcut::activated, this, [](){ exit(0); });
 
